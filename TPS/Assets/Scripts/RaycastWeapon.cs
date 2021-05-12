@@ -95,7 +95,8 @@ public class RaycastWeapon : MonoBehaviour
         ray.direction = direction;
         if (Physics.Raycast(ray, out hitInfo, distance))
         {
-            //Debug.DrawLine(ray.origin, hitInfo.point, Color.red, 1.0f);
+            //Debug.DrawLine(ray.origin, hitInfo.point, Color.red, 1.0f);.
+            Debug.Log("Hitting Something New");
             hitEffect.transform.position = hitInfo.point;
             hitEffect.transform.forward = hitInfo.normal;
             hitEffect.Emit(1);
@@ -113,21 +114,29 @@ public class RaycastWeapon : MonoBehaviour
         muzzleFlash.Emit(1);
         //Vector3 veloctiy = (raycastDestiation.position - raycastOrigin.position).normalized * bulletSpeed;
         //var bullet = CreateBullet(raycastOrigin.position, veloctiy);
-        // bullets.Add(bullet);
+        //bullets.Add(bullet);
 
 
         ray.origin = raycastOrigin.position;
         ray.direction = raycastDestiation.position - raycastOrigin.position;
+        Debug.DrawRay(raycastOrigin.position, raycastDestiation.position - raycastOrigin.position, Color.red);
         var tracer = Instantiate(tracerEffect, ray.origin, Quaternion.identity);
         tracer.AddPosition(ray.origin);
-        if (Physics.Raycast(ray, out hitInfo))
+        if (Physics.Raycast(raycastOrigin.position, raycastDestiation.position - raycastOrigin.position, out hitInfo, 1000f))
         {
             //Debug.DrawLine(ray.origin, hitInfo.point, Color.red, 1.0f);
+            Debug.Log("Hitting Something" + " " + transform.parent.name);
             hitEffect.transform.position = hitInfo.point;
             hitEffect.transform.forward = hitInfo.normal;
             hitEffect.Emit(1);
             tracer.transform.position = hitInfo.point;
         }
+        else
+        {
+            Debug.Log("Didnt hit anything");
+        }
+        Destroy(tracer.gameObject, 0.25f);
+
     }
 
     public void StopFiring()

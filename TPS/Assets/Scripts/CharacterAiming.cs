@@ -25,6 +25,12 @@ public class CharacterAiming : MonoBehaviour
 
     private void LateUpdate()
     {
+        
+    }
+
+
+    void FixedUpdate()
+    {
         if (Input.GetMouseButton(1))
         {
             aimLayer.weight += Time.deltaTime / aimDuration;
@@ -42,16 +48,11 @@ public class CharacterAiming : MonoBehaviour
         {
             weapon.UpdateFiring(Time.deltaTime);
         }
-        weapon.UpdateBullets(Time.deltaTime);
+        //weapon.UpdateBullets(Time.deltaTime);
         if (Input.GetButtonUp("Fire1"))
         {
             weapon.StopFiring();
         }
-    }
-
-
-    void FixedUpdate()
-    {
         float yawCamera = mainCamera.transform.rotation.eulerAngles.y;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, yawCamera, 0), turnSpeed * Time.fixedDeltaTime);
     }
