@@ -5,6 +5,8 @@ using UnityEngine.Animations.Rigging;
 
 public class CharacterAiming : MonoBehaviour
 {
+
+
     public float turnSpeed = 15f;
     public float aimDuration = 0.3f;
     public Rig aimLayer;
@@ -40,6 +42,7 @@ public class CharacterAiming : MonoBehaviour
         {
             weapon.UpdateFiring(Time.deltaTime);
         }
+        weapon.UpdateBullets(Time.deltaTime);
         if (Input.GetButtonUp("Fire1"))
         {
             weapon.StopFiring();
