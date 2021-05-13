@@ -16,6 +16,7 @@ public class RaycastWeapon : MonoBehaviour
     public int fireRate = 25;
     public float bulletSpeed = 1000f;
     public float bulletDrop = 0.0f;
+    public ActiveWeapon.WeaponSlot weaponSlot;
 
     public ParticleSystem muzzleFlash;
     public ParticleSystem hitEffect;

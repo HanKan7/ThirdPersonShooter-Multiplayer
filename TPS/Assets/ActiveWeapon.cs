@@ -6,12 +6,19 @@ using UnityEditor.Animations;
 
 public class ActiveWeapon : MonoBehaviour
 {
+
+    public enum WeaponSlot
+    {
+        Primary = 0,Secondary = 1
+    }
     public Transform crossHairTarget;
-    RaycastWeapon weapon;
-    public Transform weaponParent;
+    RaycastWeapon[] equipped_Weapon = new RaycastWeapon[2];
+    int activeWeaponIndex;
+    public Transform[] weaponSlots;
     public Transform LeftGrip,RightGrip;
 
     public Animator rigController;
+
     //AnimatorOverrideController overrideAnim;
 
     // Start is called before the first frame update
@@ -24,9 +31,16 @@ public class ActiveWeapon : MonoBehaviour
         }
     }
 
+    RaycastWeapon GetWeapon(int index)
+    {
+        if (index < 0 || index >= equipped_Weapon.Length) return null;
+        return equipped_Weapon[index];
+    }
+
     // Update is called once per frame
     void Update()
     {
+        var weapon = GetWeapon(activeWeaponIndex);
         if (weapon)
         {
             if (Input.GetButtonDown("Fire1"))
@@ -54,6 +68,8 @@ public class ActiveWeapon : MonoBehaviour
 
     public void Equip(RaycastWeapon newWeapon)
     {
+        int weaponSlotIndex = (int)newWeapon.weaponSlot;
+        var weapon = GetWeapon(weaponSlotIndex);
         if (weapon)
         {
             Destroy(weapon.gameObject);
@@ -61,10 +77,12 @@ public class ActiveWeapon : MonoBehaviour
         weapon = newWeapon;
         Debug.Log("Weapon name = " + weapon.gameObject.name);
         weapon.raycastDestiation = crossHairTarget;
-        weapon.transform.parent = weaponParent;
+        weapon.transform.parent = weaponSlots[weaponSlotIndex];
         weapon.transform.localPosition = Vector3.zero;
         weapon.transform.localRotation = Quaternion.identity;
         rigController.Play("equip_" + weapon.weaponName);
+        equipped_Weapon[weaponSlotIndex] = weapon;
+        activeWeaponIndex = weaponSlotIndex;
     }
 
     //[ContextMenu("Save Weapon pose")]
