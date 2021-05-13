@@ -77,12 +77,52 @@ public class ActiveWeapon : MonoBehaviour
         weapon = newWeapon;
         Debug.Log("Weapon name = " + weapon.gameObject.name);
         weapon.raycastDestiation = crossHairTarget;
-        weapon.transform.parent = weaponSlots[weaponSlotIndex];
-        weapon.transform.localPosition = Vector3.zero;
-        weapon.transform.localRotation = Quaternion.identity;
-        rigController.Play("equip_" + weapon.weaponName);
+        weapon.transform.SetParent(weaponSlots[weaponSlotIndex], false);
+        //weapon.transform.localPosition = Vector3.zero;
+        //weapon.transform.localRotation = Quaternion.identity;
+        
         equipped_Weapon[weaponSlotIndex] = weapon;
-        activeWeaponIndex = weaponSlotIndex;
+        SetActiveWeapon(weaponSlotIndex);
+    }
+
+    void SetActiveWeapon(int weaponSlotIndex)
+    {
+        int holsterIndex = activeWeaponIndex;
+        int activateIndex = weaponSlotIndex;
+        StartCoroutine(SwitchWeapon(holsterIndex, activateIndex));
+    }
+
+    IEnumerator HolsterWeapon(int index)
+    {
+        var weapon = GetWeapon(index);
+        if (weapon)
+        {
+            rigController.SetBool("holster_weapon", true);
+            do
+            {
+                yield return new WaitForEndOfFrame();
+            } while (rigController.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
+        }
+    }
+    IEnumerator ActivateWeapon(int index)
+    {
+
+        var weapon = GetWeapon(index);
+        if (weapon)
+        {
+            rigController.SetBool("holster_weapon", false);
+            rigController.Play("equip_" + weapon.weaponName);
+            do
+            {
+                yield return new WaitForEndOfFrame();
+            } while (rigController.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
+        }
+    }
+    IEnumerator SwitchWeapon(int holsterIndex, int activateIndex)
+    {
+        yield return StartCoroutine(HolsterWeapon(holsterIndex));
+        yield return StartCoroutine(ActivateWeapon(activateIndex));
+        activeWeaponIndex = activateIndex;
     }
 
     //[ContextMenu("Save Weapon pose")]
