@@ -9,7 +9,6 @@ public class CharacterAiming : MonoBehaviour
 
     public float turnSpeed = 15f;
     public float aimDuration = 0.3f;
-    public Rig aimLayer;
     
     Camera mainCamera;
     RaycastWeapon weapon;
@@ -25,7 +24,7 @@ public class CharacterAiming : MonoBehaviour
 
     private void LateUpdate()
     {
-        aimLayer.weight = 1;
+
     }
 
 

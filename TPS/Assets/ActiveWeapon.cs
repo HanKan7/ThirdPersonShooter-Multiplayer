@@ -8,19 +8,15 @@ public class ActiveWeapon : MonoBehaviour
 {
     public Transform crossHairTarget;
     RaycastWeapon weapon;
-    public Rig handIK;
     public Transform weaponParent;
     public Transform LeftGrip,RightGrip;
 
-    Animator anim;
-    AnimatorOverrideController overrideAnim;
+    public Animator rigController;
+    //AnimatorOverrideController overrideAnim;
 
     // Start is called before the first frame update
     void Start()
-    {
-
-        anim = GetComponent<Animator>();
-        overrideAnim = anim.runtimeAnimatorController as AnimatorOverrideController;
+    {    
         RaycastWeapon existingWeapon = GetComponentInChildren<RaycastWeapon>();
         if (existingWeapon)
         {
@@ -46,13 +42,14 @@ public class ActiveWeapon : MonoBehaviour
             {
                 weapon.StopFiring();
             }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                bool isHolstered = rigController.GetBool("holster_weapon");
+                rigController.SetBool("holster_weapon", !isHolstered);
+            }
         }
-        else
-        {
-            handIK.weight = 0;
-            //Debug.Log("No weapon = " + handIK.weight);
-            anim.SetLayerWeight(1, 0.0f);
-        }
+        
     }
 
     public void Equip(RaycastWeapon newWeapon)
@@ -67,26 +64,18 @@ public class ActiveWeapon : MonoBehaviour
         weapon.transform.parent = weaponParent;
         weapon.transform.localPosition = Vector3.zero;
         weapon.transform.localRotation = Quaternion.identity;
-        handIK.weight = 1;
-        anim.SetLayerWeight(1, 1.0f);
-        Invoke(nameof(SetAnimationDelayed), 0.001f);
-        //Debug.Log("Yes weapon = " + handIK.weight);
+        rigController.Play("equip_" + weapon.weaponName);
     }
 
-    void SetAnimationDelayed()
-    {
-        overrideAnim["weapon_anim_empty"] = weapon.weaponAnimation;
-    }
-
-    [ContextMenu("Save Weapon pose")]
-    void SaveWeaponPose()
-    {
-        GameObjectRecorder recorder = new GameObjectRecorder(gameObject);
-        recorder.BindComponentsOfType<Transform>(weaponParent.gameObject, false);
-        recorder.BindComponentsOfType<Transform>(LeftGrip.gameObject, false);
-        recorder.BindComponentsOfType<Transform>(RightGrip.gameObject, false);
-        recorder.TakeSnapshot(0.0f);
-        recorder.SaveToClip(weapon.weaponAnimation);
-        UnityEditor.AssetDatabase.SaveAssets();
-    }
+    //[ContextMenu("Save Weapon pose")]
+    //void SaveWeaponPose()
+    //{
+    //    GameObjectRecorder recorder = new GameObjectRecorder(gameObject);
+    //    recorder.BindComponentsOfType<Transform>(weaponParent.gameObject, false);
+    //    recorder.BindComponentsOfType<Transform>(LeftGrip.gameObject, false);
+    //    recorder.BindComponentsOfType<Transform>(RightGrip.gameObject, false);
+    //    recorder.TakeSnapshot(0.0f);
+    //    recorder.SaveToClip(weapon.weaponAnimation);
+    //    UnityEditor.AssetDatabase.SaveAssets();
+    //}
 }

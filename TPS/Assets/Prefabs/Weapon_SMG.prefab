@@ -19239,7 +19239,7 @@ MonoBehaviour:
     type: 3}
   raycastOrigin: {fileID: 5942522841208787178}
   raycastDestiation: {fileID: 0}
-  weaponAnimation: {fileID: 7400000, guid: 767322bedf4eee3438f6335f635cdfab, type: 2}
+  weaponName: SMG
 --- !u!1 &5944228758799912738
 GameObject:
   m_ObjectHideFlags: 0
