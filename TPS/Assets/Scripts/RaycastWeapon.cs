@@ -22,6 +22,7 @@ public class RaycastWeapon : MonoBehaviour
     public TrailRenderer tracerEffect;
     public Transform raycastOrigin;
     public Transform raycastDestiation;
+    public AnimationClip weaponAnimation;
 
     Ray ray;
     RaycastHit hitInfo;
