@@ -185,12 +185,14 @@ public class RaycastWeapon : MonoBehaviour
             {
                 rb2d.AddForceAtPosition(ray.direction * 4, hitInfo.point, ForceMode.Impulse);
             }
-            recoil.GenerateRecoil(weaponName);
+
         }
         else
         {
+
             //Debug.Log("Didnt hit anything");
         }
+        recoil.GenerateRecoil(weaponName);
         Destroy(tracer.gameObject, 0.25f);
 
     }

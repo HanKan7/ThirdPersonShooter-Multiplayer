@@ -469,23 +469,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 0}
   cameraShake: {fileID: 0}
+  rigController: {fileID: 0}
   recoilPattern:
-  - {x: 10, y: 10}
-  - {x: 8, y: 10}
-  - {x: 6, y: 10}
-  - {x: 4, y: 10}
-  - {x: 2, y: 10}
-  - {x: 0, y: 10}
-  - {x: -2, y: 10}
-  - {x: -4, y: 10}
-  - {x: -6, y: 10}
-  - {x: -8, y: 10}
-  - {x: -10, y: 10}
-  - {x: -8, y: 10}
-  - {x: -6, y: 10}
-  - {x: -4, y: 10}
-  - {x: -2, y: 10}
-  - {x: 0, y: 10}
+  - {x: 10, y: 3.5}
+  - {x: 8, y: 3.5}
+  - {x: 6, y: 3.5}
+  - {x: 4, y: 3.5}
+  - {x: 2, y: 3.5}
+  - {x: 0, y: 3.5}
+  - {x: -2, y: 3.5}
+  - {x: -4, y: 3.5}
+  - {x: -6, y: 3.5}
+  - {x: -8, y: 3.5}
+  - {x: -10, y: 3.5}
+  - {x: -8, y: 3.5}
+  - {x: -6, y: 3.5}
+  - {x: -4, y: 3.5}
+  - {x: -2, y: 3.5}
+  - {x: 0, y: 3.5}
   duration: 0.1
 --- !u!114 &-8742419842949868371
 MonoBehaviour:
