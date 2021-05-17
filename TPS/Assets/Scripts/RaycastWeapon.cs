@@ -25,6 +25,7 @@ public class RaycastWeapon : MonoBehaviour
     public TrailRenderer tracerEffect;
     public Transform raycastOrigin;
     public Transform raycastDestiation;
+    public WeaponRecoil recoil;
     public string weaponName;
 
     Ray ray;
@@ -32,6 +33,11 @@ public class RaycastWeapon : MonoBehaviour
     float accumulatedTime;
     List<Bullet> bullets = new List<Bullet>();
     float maxLifeTime = 3f;
+
+    public void Awake()
+    {
+        recoil = GetComponent<WeaponRecoil>();
+    }
 
     Vector3 GetPosition(Bullet bullet)
     {
@@ -57,6 +63,25 @@ public class RaycastWeapon : MonoBehaviour
         isFiring = true;
         accumulatedTime = 0.0f;
         FireBullet();
+        recoil.Reset();
+    }
+
+    public void UpdateWeapon(float deltaTime)
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            StartFiring();
+        }
+        if (isFiring)
+        {
+            UpdateFiring(Time.deltaTime);
+            //UpdateBullets(Time.deltaTime);
+        }
+
+        if (Input.GetButtonUp("Fire1"))
+        {
+            StopFiring();
+        }
     }
 
     public void UpdateFiring(float deltaTime)
@@ -160,6 +185,7 @@ public class RaycastWeapon : MonoBehaviour
             {
                 rb2d.AddForceAtPosition(ray.direction * 4, hitInfo.point, ForceMode.Impulse);
             }
+            recoil.GenerateRecoil(weaponName);
         }
         else
         {
