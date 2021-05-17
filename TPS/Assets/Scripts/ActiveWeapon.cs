@@ -11,11 +11,12 @@ public class ActiveWeapon : MonoBehaviour
     {
         Primary = 0,Secondary = 1   //index values
     }
-    public Transform crossHairTarget;
-    public RaycastWeapon[] equipped_Weapon = new RaycastWeapon[2];
     int activeWeaponIndex;
+    bool isHolstered = false;
+    public Transform crossHairTarget;
     public Transform[] weaponSlots;
     public Transform LeftGrip,RightGrip;
+    public RaycastWeapon[] equipped_Weapon = new RaycastWeapon[2];
 
     public Animator rigController;
 
@@ -41,7 +42,7 @@ public class ActiveWeapon : MonoBehaviour
     void Update()
     {
         var weapon = GetWeapon(activeWeaponIndex);
-        if (weapon)
+        if (weapon && !isHolstered)
         {
             if (Input.GetButtonDown("Fire1"))
             {
@@ -57,12 +58,12 @@ public class ActiveWeapon : MonoBehaviour
                 weapon.StopFiring();
             }
 
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                ToggleActiveWeapon();
-            }
         }
 
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            ToggleActiveWeapon();
+        }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SetActiveWeapon(WeaponSlot.Primary);
@@ -123,6 +124,7 @@ public class ActiveWeapon : MonoBehaviour
 
     IEnumerator HolsterWeapon(int index)
     {
+        isHolstered = true;
         var weapon = GetWeapon(index);
         if (weapon)
         {
@@ -145,6 +147,7 @@ public class ActiveWeapon : MonoBehaviour
             {
                 yield return new WaitForEndOfFrame();
             } while (rigController.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
+            isHolstered = false;
         }
     }
 

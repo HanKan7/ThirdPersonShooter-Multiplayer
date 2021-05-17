@@ -10,12 +10,14 @@ public class RaycastWeapon : MonoBehaviour
         public Vector3 initialPosition;
         public Vector3 initialVelocity;
         public TrailRenderer tracer;
+        public  float bounce;
     }
 
     public bool isFiring = false;
     public int fireRate = 25;
     public float bulletSpeed = 1000f;
     public float bulletDrop = 0.0f;
+    public float maxBounces = 0;
     public ActiveWeapon.WeaponSlot weaponSlot;
 
     public ParticleSystem muzzleFlash;
@@ -44,6 +46,7 @@ public class RaycastWeapon : MonoBehaviour
         bullet.initialPosition = position;
         bullet.initialVelocity = velocity;
         bullet.time = 0.0f;
+        bullet.bounce = maxBounces;
         bullet.tracer = Instantiate(tracerEffect, position, Quaternion.identity);   //tracer shit
         bullet.tracer.AddPosition(position);
         return bullet;
@@ -104,6 +107,22 @@ public class RaycastWeapon : MonoBehaviour
             hitEffect.Emit(1);
             bullet.tracer.transform.position = hitInfo.point;
             bullet.time = maxLifeTime;
+
+            //Collision Impulse
+            var rb2d = hitInfo.collider.GetComponent<Rigidbody>();
+            if (rb2d)
+            {
+                rb2d.AddForceAtPosition(ray.direction * 20, hitInfo.point, ForceMode.Impulse);
+            }
+
+            //Bullet Ricochet
+            if(bullet.bounce > 0)
+            {
+                bullet.time = 0;
+                bullet.initialPosition = hitInfo.point;
+                bullet.initialVelocity = Vector3.Reflect(bullet.initialVelocity, hitInfo.normal);
+                bullet.bounce--;
+            }
         }
         else
         {
@@ -132,6 +151,15 @@ public class RaycastWeapon : MonoBehaviour
             hitEffect.transform.forward = hitInfo.normal;
             hitEffect.Emit(1);
             tracer.transform.position = hitInfo.point;
+
+
+
+            //Collision Impulse
+            var rb2d = hitInfo.collider.GetComponent<Rigidbody>();
+            if (rb2d)
+            {
+                rb2d.AddForceAtPosition(ray.direction * 4, hitInfo.point, ForceMode.Impulse);
+            }
         }
         else
         {
