@@ -133,39 +133,39 @@ public class RaycastWeapon : MonoBehaviour
     private void FireBullet()
     {
         muzzleFlash.Emit(1);
-        Vector3 veloctiy = (raycastDestiation.position - raycastOrigin.position).normalized * bulletSpeed;
-        var bullet = CreateBullet(raycastOrigin.position, veloctiy);
-        bullets.Add(bullet);
+        //Vector3 veloctiy = (raycastDestiation.position - raycastOrigin.position).normalized * bulletSpeed;
+        //var bullet = CreateBullet(raycastOrigin.position, veloctiy);
+        //bullets.Add(bullet);
 
 
-        //ray.origin = raycastOrigin.position;
-        //ray.direction = raycastDestiation.position - raycastOrigin.position;
-        //Debug.DrawRay(ray.origin, ray.direction, Color.red);
-        //var tracer = Instantiate(tracerEffect, ray.origin, Quaternion.identity);
-        //tracer.AddPosition(ray.origin);
-        //if (Physics.Raycast(raycastOrigin.position, raycastDestiation.position - raycastOrigin.position, out hitInfo, 1000f))
-        //{
-        //    //Debug.DrawLine(ray.origin, hitInfo.point, Color.red, 1.0f);
-        //    //Debug.Log("Hitting Something" + " " + transform.parent.name);
-        //    hitEffect.transform.position = hitInfo.point;
-        //    hitEffect.transform.forward = hitInfo.normal;
-        //    hitEffect.Emit(1);
-        //    tracer.transform.position = hitInfo.point;
+        ray.origin = raycastOrigin.position;
+        ray.direction = raycastDestiation.position - raycastOrigin.position;
+        Debug.DrawRay(ray.origin, ray.direction, Color.red);
+        var tracer = Instantiate(tracerEffect, ray.origin, Quaternion.identity);
+        tracer.AddPosition(ray.origin);
+        if (Physics.Raycast(raycastOrigin.position, raycastDestiation.position - raycastOrigin.position, out hitInfo, 1000f))
+        {
+            //Debug.DrawLine(ray.origin, hitInfo.point, Color.red, 1.0f);
+            //Debug.Log("Hitting Something" + " " + transform.parent.name);
+            hitEffect.transform.position = hitInfo.point;
+            hitEffect.transform.forward = hitInfo.normal;
+            hitEffect.Emit(1);
+            tracer.transform.position = hitInfo.point;
 
 
 
-        //    //Collision Impulse
-        //    var rb2d = hitInfo.collider.GetComponent<Rigidbody>();
-        //    if (rb2d)
-        //    {
-        //        rb2d.AddForceAtPosition(ray.direction * 4, hitInfo.point, ForceMode.Impulse);
-        //    }
-        //}
-        //else
-        //{
-        //    //Debug.Log("Didnt hit anything");
-        //}
-        //Destroy(tracer.gameObject, 0.25f);
+            //Collision Impulse
+            var rb2d = hitInfo.collider.GetComponent<Rigidbody>();
+            if (rb2d)
+            {
+                rb2d.AddForceAtPosition(ray.direction * 4, hitInfo.point, ForceMode.Impulse);
+            }
+        }
+        else
+        {
+            //Debug.Log("Didnt hit anything");
+        }
+        Destroy(tracer.gameObject, 0.25f);
 
     }
 

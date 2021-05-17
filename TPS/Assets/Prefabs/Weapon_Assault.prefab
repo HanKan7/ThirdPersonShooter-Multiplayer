@@ -443,6 +443,8 @@ MonoBehaviour:
   fireRate: 5
   bulletSpeed: 100
   bulletDrop: 0
+  maxBounces: 0
+  weaponSlot: 0
   muzzleFlash: {fileID: 7609577819350578046}
   hitEffect: {fileID: 8411728564228726499}
   tracerEffect: {fileID: 8784868766056272125, guid: 7c89dde0f019cac40982606cc015dfe1,

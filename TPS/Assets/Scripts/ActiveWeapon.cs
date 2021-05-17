@@ -11,7 +11,7 @@ public class ActiveWeapon : MonoBehaviour
     {
         Primary = 0,Secondary = 1   //index values
     }
-    int activeWeaponIndex;
+    int activeWeaponIndex = -1;
     bool isHolstered = false;
     public Transform crossHairTarget;
     public Transform[] weaponSlots;
@@ -51,9 +51,8 @@ public class ActiveWeapon : MonoBehaviour
             }
             if (weapon.isFiring)
             {
-                Debug.Log("isFiring");
                 weapon.UpdateFiring(Time.deltaTime);
-                weapon.UpdateBullets(Time.deltaTime);
+                //weapon.UpdateBullets(Time.deltaTime);
             }
             
             if (Input.GetButtonUp("Fire1"))
