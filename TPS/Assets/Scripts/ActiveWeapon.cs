@@ -46,13 +46,16 @@ public class ActiveWeapon : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1"))
             {
+                
                 weapon.StartFiring();
             }
             if (weapon.isFiring)
             {
+                Debug.Log("isFiring");
                 weapon.UpdateFiring(Time.deltaTime);
+                weapon.UpdateBullets(Time.deltaTime);
             }
-            //weapon.UpdateBullets(Time.deltaTime);
+            
             if (Input.GetButtonUp("Fire1"))
             {
                 weapon.StopFiring();
@@ -81,7 +84,7 @@ public class ActiveWeapon : MonoBehaviour
         var weapon = GetWeapon(weaponSlotIndex);
         if (weapon)
         {
-            Destroy(weapon.gameObject);
+            Destroy(weapon.gameObject);   
         }
         weapon = newWeapon;
         Debug.Log("Weapon name = " + weapon.gameObject.name);
