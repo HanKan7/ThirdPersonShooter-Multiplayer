@@ -9,10 +9,10 @@ public class ActiveWeapon : MonoBehaviour
 
     public enum WeaponSlot
     {
-        Primary = 0,Secondary = 1
+        Primary = 0,Secondary = 1   //index values
     }
     public Transform crossHairTarget;
-    RaycastWeapon[] equipped_Weapon = new RaycastWeapon[2];
+    public RaycastWeapon[] equipped_Weapon = new RaycastWeapon[2];
     int activeWeaponIndex;
     public Transform[] weaponSlots;
     public Transform LeftGrip,RightGrip;
@@ -59,11 +59,19 @@ public class ActiveWeapon : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.X))
             {
-                bool isHolstered = rigController.GetBool("holster_weapon");
-                rigController.SetBool("holster_weapon", !isHolstered);
+                ToggleActiveWeapon();
             }
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SetActiveWeapon(WeaponSlot.Primary);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SetActiveWeapon(WeaponSlot.Secondary);
+        }
+
     }
 
     public void Equip(RaycastWeapon newWeapon)
@@ -82,14 +90,35 @@ public class ActiveWeapon : MonoBehaviour
         //weapon.transform.localRotation = Quaternion.identity;
         
         equipped_Weapon[weaponSlotIndex] = weapon;
-        SetActiveWeapon(weaponSlotIndex);
+        SetActiveWeapon(newWeapon.weaponSlot);
     }
 
-    void SetActiveWeapon(int weaponSlotIndex)
+    void ToggleActiveWeapon()
+    {
+        bool isHolstered = rigController.GetBool("holster_weapon");
+        if (isHolstered)
+        {
+            StartCoroutine(ActivateWeapon(activeWeaponIndex));
+        }
+        else
+        {
+            StartCoroutine(HolsterWeapon(activeWeaponIndex));
+        }
+    }
+
+    void SetActiveWeapon(WeaponSlot weaponSlot)
     {
         int holsterIndex = activeWeaponIndex;
-        int activateIndex = weaponSlotIndex;
+        int activateIndex = (int)weaponSlot;
+        if (holsterIndex == activateIndex) holsterIndex = -1;
         StartCoroutine(SwitchWeapon(holsterIndex, activateIndex));
+    }
+
+    IEnumerator SwitchWeapon(int holsterIndex, int activateIndex)
+    {
+        yield return StartCoroutine(HolsterWeapon(holsterIndex));
+        yield return StartCoroutine(ActivateWeapon(activateIndex));
+        activeWeaponIndex = activateIndex;
     }
 
     IEnumerator HolsterWeapon(int index)
@@ -118,12 +147,7 @@ public class ActiveWeapon : MonoBehaviour
             } while (rigController.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
         }
     }
-    IEnumerator SwitchWeapon(int holsterIndex, int activateIndex)
-    {
-        yield return StartCoroutine(HolsterWeapon(holsterIndex));
-        yield return StartCoroutine(ActivateWeapon(activateIndex));
-        activeWeaponIndex = activateIndex;
-    }
+
 
     //[ContextMenu("Save Weapon pose")]
     //void SaveWeaponPose()

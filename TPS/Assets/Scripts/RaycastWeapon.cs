@@ -127,7 +127,7 @@ public class RaycastWeapon : MonoBehaviour
         if (Physics.Raycast(raycastOrigin.position, raycastDestiation.position - raycastOrigin.position, out hitInfo, 1000f))
         {
             //Debug.DrawLine(ray.origin, hitInfo.point, Color.red, 1.0f);
-            Debug.Log("Hitting Something" + " " + transform.parent.name);
+            //Debug.Log("Hitting Something" + " " + transform.parent.name);
             hitEffect.transform.position = hitInfo.point;
             hitEffect.transform.forward = hitInfo.normal;
             hitEffect.Emit(1);
@@ -135,7 +135,7 @@ public class RaycastWeapon : MonoBehaviour
         }
         else
         {
-            Debug.Log("Didnt hit anything");
+            //Debug.Log("Didnt hit anything");
         }
         Destroy(tracer.gameObject, 0.25f);
 

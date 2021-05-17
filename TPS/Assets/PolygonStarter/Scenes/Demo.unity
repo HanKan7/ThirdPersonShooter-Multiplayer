@@ -562,7 +562,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 18712059}
-  m_LocalRotation: {x: 0.19215375, y: 0.11134547, z: -0.021929178, w: 0.97478116}
+  m_LocalRotation: {x: 0.1898844, y: 0.11139632, z: -0.021669894, w: 0.97522575}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3721,7 +3721,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204948677}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 2dc7b382d25903545b405802eb2198ab, type: 3}
   m_Controller: {fileID: 9100000, guid: a264a7b426a97294fa2d5ffad85a8c2b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 1
@@ -11990,6 +11990,7 @@ GameObject:
   m_Component:
   - component: {fileID: 908829512}
   - component: {fileID: 908829511}
+  - component: {fileID: 908829513}
   m_Layer: 0
   m_Name: CM FreeLook1
   m_TagString: Untagged
@@ -12080,6 +12081,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &908829513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908829510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4700f9f03ad19f94baf0367cb7a9c988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Width: 2
+  m_Damping: 1
+  m_MinFOV: 3
+  m_MaxFOV: 60
 --- !u!1001 &911805128
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12347,6 +12364,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 932571056}
+  - component: {fileID: 932571057}
   m_Layer: 11
   m_Name: Weapon_Slot_Primary
   m_TagString: Untagged
@@ -12368,6 +12386,59 @@ Transform:
   m_Father: {fileID: 1440130066}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &932571057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932571055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8935e03361a14ec4b8edc872f76bc822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Weight: 1
+  m_Data:
+    m_ConstrainedObject: {fileID: 932571056}
+    m_SourceObjects:
+      m_Length: 1
+      m_Item0:
+        transform: {fileID: 217774318171756583}
+        weight: 1
+      m_Item1:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item2:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item3:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item4:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item5:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item6:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item7:
+        transform: {fileID: 0}
+        weight: 0
+    m_ConstrainedPositionAxes:
+      x: 1
+      y: 1
+      z: 1
+    m_ConstrainedRotationAxes:
+      x: 1
+      y: 1
+      z: 1
+    m_MaintainPositionOffset: 1
+    m_MaintainRotationOffset: 1
+  m_SourceObjectsGUIToggle: 1
+  m_SettingsGUIToggle: 0
 --- !u!1001 &944916895
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15653,6 +15724,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1271922098}
+  - component: {fileID: 1271922099}
   m_Layer: 11
   m_Name: Weapon_Slot_Secondary
   m_TagString: Untagged
@@ -15674,6 +15746,59 @@ Transform:
   m_Father: {fileID: 1440130066}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 73.554, y: 23.688002, z: 21.240002}
+--- !u!114 &1271922099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1271922097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8935e03361a14ec4b8edc872f76bc822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Weight: 1
+  m_Data:
+    m_ConstrainedObject: {fileID: 1271922098}
+    m_SourceObjects:
+      m_Length: 1
+      m_Item0:
+        transform: {fileID: 223730963622324595}
+        weight: 1
+      m_Item1:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item2:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item3:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item4:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item5:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item6:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item7:
+        transform: {fileID: 0}
+        weight: 0
+    m_ConstrainedPositionAxes:
+      x: 1
+      y: 1
+      z: 1
+    m_ConstrainedRotationAxes:
+      x: 1
+      y: 1
+      z: 1
+    m_MaintainPositionOffset: 1
+    m_MaintainRotationOffset: 1
+  m_SourceObjectsGUIToggle: 1
+  m_SettingsGUIToggle: 0
 --- !u!1001 &1275670175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17686,7 +17811,7 @@ GameObject:
   - component: {fileID: 1440130066}
   - component: {fileID: 1440130065}
   m_Layer: 11
-  m_Name: RigLayer_BodyAim
+  m_Name: RigLayer_AimBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20133,7 +20258,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 44.665943
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -20158,7 +20283,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1629643214}
-  m_LocalRotation: {x: 0.19215186, y: 0.11134965, z: -0.021949599, w: 0.9747806}
+  m_LocalRotation: {x: 0.18988217, y: 0.11140044, z: -0.021690331, w: 0.97522527}
   m_LocalPosition: {x: 6.651, y: 2.5, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -21069,7 +21194,7 @@ GameObject:
   - component: {fileID: 1687341958}
   - component: {fileID: 1687341957}
   m_Layer: 11
-  m_Name: RigLayer_WeaponAiming
+  m_Name: RigLayer_AimWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22368,7 +22493,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1789238058}
-  m_LocalRotation: {x: 0.17445926, y: 0.11172926, z: -0.019926652, w: 0.97810197}
+  m_LocalRotation: {x: 0.16992445, y: 0.11182041, z: -0.019408688, w: 0.9789001}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -26873,6 +26998,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crossHairTarget: {fileID: 430872365}
+  equipped_Weapon:
+  - {fileID: 0}
+  - {fileID: 0}
   weaponSlots:
   - {fileID: 872326777}
   - {fileID: 1635522733}
