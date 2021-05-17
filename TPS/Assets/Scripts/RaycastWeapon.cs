@@ -28,6 +28,8 @@ public class RaycastWeapon : MonoBehaviour
     public WeaponRecoil recoil;
     public string weaponName;
 
+    public GameObject magazine;
+
     Ray ray;
     RaycastHit hitInfo;
     float accumulatedTime;

@@ -34,6 +34,11 @@ public class ActiveWeapon : MonoBehaviour
         }
     }
 
+    public RaycastWeapon GetActiveWeapon()
+    {
+        return GetWeapon(activeWeaponIndex);
+    }
+
     RaycastWeapon GetWeapon(int index)
     {
         if (index < 0 || index >= equipped_Weapon.Length) return null;
