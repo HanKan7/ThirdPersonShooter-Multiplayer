@@ -14,6 +14,7 @@ public class ActiveWeapon : MonoBehaviour
     }
     int activeWeaponIndex = -1;
     bool isHolstered = false;
+    public bool isPrimaryEquipped = false, isSecondaryEquipped = false;
     public Transform crossHairTarget;
     public Transform[] weaponSlots;
     public Transform LeftGrip,RightGrip;
@@ -21,6 +22,7 @@ public class ActiveWeapon : MonoBehaviour
 
     public Animator rigController;
     public CinemachineFreeLook playerCamera;
+    public AmmoWidget ammoWidget;
 
     //AnimatorOverrideController overrideAnim;
 
@@ -49,11 +51,11 @@ public class ActiveWeapon : MonoBehaviour
     void Update()
     {
         var weapon = GetWeapon(activeWeaponIndex);
-        if (weapon && !isHolstered)
+        if ((weapon && !isHolstered))
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                
+                Debug.Log("Firing " + equipped_Weapon[activeWeaponIndex].name);
                 weapon.StartFiring();
             }
             if (weapon.isFiring)
@@ -73,12 +75,14 @@ public class ActiveWeapon : MonoBehaviour
         {
             ToggleActiveWeapon();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1)    && isPrimaryEquipped)
         {
+            ammoWidget.ammoText.text = equipped_Weapon[0].ammoCount.ToString();
             SetActiveWeapon(WeaponSlot.Primary);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2)    && isSecondaryEquipped)
         {
+            ammoWidget.ammoText.text = equipped_Weapon[1].ammoCount.ToString();
             SetActiveWeapon(WeaponSlot.Secondary);
         }
 
@@ -87,6 +91,9 @@ public class ActiveWeapon : MonoBehaviour
     public void Equip(RaycastWeapon newWeapon)
     {
         int weaponSlotIndex = (int)newWeapon.weaponSlot;
+        Debug.Log("Weapon index " + weaponSlotIndex);
+        if (weaponSlotIndex == 0) isPrimaryEquipped = true;
+        if (weaponSlotIndex == 1) isSecondaryEquipped = true;
         var weapon = GetWeapon(weaponSlotIndex);
         if (weapon)
         {
@@ -103,6 +110,7 @@ public class ActiveWeapon : MonoBehaviour
         
         equipped_Weapon[weaponSlotIndex] = weapon;
         SetActiveWeapon(newWeapon.weaponSlot);
+        ammoWidget.Refresh(weapon.ammoCount);
     }
 
     void ToggleActiveWeapon()

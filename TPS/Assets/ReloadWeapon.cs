@@ -9,6 +9,7 @@ public class ReloadWeapon : MonoBehaviour
 
     public ActiveWeapon activeWeapon;
     public Transform leftHand;
+    public AmmoWidget ammoWidget;
 
     GameObject magHand;
 
@@ -19,10 +20,19 @@ public class ReloadWeapon : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        RaycastWeapon weapon = activeWeapon.GetActiveWeapon();
+        if (weapon)
         {
-            rigController.SetTrigger("reload_weapon");
+            if (Input.GetKeyDown(KeyCode.R) || weapon.ammoCount <= 0)
+            {
+                rigController.SetTrigger("reload_weapon");
+            }
+            if (weapon.isFiring)
+            {
+                ammoWidget.Refresh(weapon.ammoCount);
+            }
         }
+       
     }
 
     void OnAnimationEvent(string eventName)
@@ -59,7 +69,6 @@ public class ReloadWeapon : MonoBehaviour
     {
         GameObject droppedMagazine = Instantiate(magHand, magHand.transform.position, magHand.transform.rotation);
         droppedMagazine.AddComponent<Rigidbody>();
-        droppedMagazine.AddComponent<BoxCollider>();
         magHand.SetActive(false);
     }
     void RefillMag()
@@ -71,5 +80,8 @@ public class ReloadWeapon : MonoBehaviour
         RaycastWeapon weapon = activeWeapon.GetActiveWeapon();
         weapon.magazine.SetActive(true);
         Destroy(magHand);
+        weapon.ammoCount = weapon.clipSize;
+        rigController.ResetTrigger("reload_weapon");
+        ammoWidget.Refresh(weapon.ammoCount);
     }
 }

@@ -19,6 +19,7 @@ public class RaycastWeapon : MonoBehaviour
     public float bulletDrop = 0.0f;
     public float maxBounces = 0;
     public ActiveWeapon.WeaponSlot weaponSlot;
+    public int thisWeaponIsEquipped = -1;
 
     public ParticleSystem muzzleFlash;
     public ParticleSystem hitEffect;
@@ -35,6 +36,9 @@ public class RaycastWeapon : MonoBehaviour
     float accumulatedTime;
     List<Bullet> bullets = new List<Bullet>();
     float maxLifeTime = 3f;
+
+    public int ammoCount;
+    public int clipSize;
 
     public void Awake()
     {
@@ -159,6 +163,12 @@ public class RaycastWeapon : MonoBehaviour
 
     private void FireBullet()
     {
+
+        if(ammoCount <= 0)
+        {
+            return;
+        }
+        ammoCount--;
         muzzleFlash.Emit(1);
         //Vector3 veloctiy = (raycastDestiation.position - raycastOrigin.position).normalized * bulletSpeed;
         //var bullet = CreateBullet(raycastOrigin.position, veloctiy);
