@@ -19586,7 +19586,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5942522841508541917}
   - component: {fileID: 5942522841508541916}
-  - component: {fileID: -92832516987166359}
+  - component: {fileID: 1275759569542800388}
   - component: {fileID: 4959143794332262223}
   m_Layer: 11
   m_Name: Weapon_SMG
@@ -19645,7 +19645,7 @@ MonoBehaviour:
   magazine: {fileID: 6426859892992864343}
   ammoCount: 25
   clipSize: 25
---- !u!114 &-92832516987166359
+--- !u!114 &1275759569542800388
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -19654,29 +19654,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 5942522841508541918}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 758d3887086b410469b777abd7bc09e5, type: 3}
+  m_Script: {fileID: 11500000, guid: c063bfef156e10142851d93b86535d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 0}
   cameraShake: {fileID: 0}
   rigController: {fileID: 0}
   recoilPattern:
-  - {x: 10, y: 3.5}
-  - {x: 8, y: 3.5}
-  - {x: 6, y: 3.5}
-  - {x: 4, y: 3.5}
-  - {x: 2, y: 3.5}
-  - {x: 0, y: 3.5}
-  - {x: -2, y: 3.5}
-  - {x: -4, y: 3.5}
-  - {x: -6, y: 3.5}
-  - {x: -8, y: 3.5}
-  - {x: -10, y: 3.5}
-  - {x: -8, y: 3.5}
-  - {x: -6, y: 3.5}
-  - {x: -4, y: 3.5}
-  - {x: -2, y: 3.5}
-  - {x: 0, y: 3.5}
+  - {x: -10, y: 4}
+  - {x: -8, y: 4}
+  - {x: -6, y: 4}
+  - {x: -4, y: 4}
+  - {x: -2, y: 4}
+  - {x: 0, y: 4}
+  - {x: 2, y: 4}
+  - {x: 4, y: 4}
+  - {x: 6, y: 4}
+  - {x: 8, y: 4}
+  - {x: 10, y: 4}
+  - {x: 8, y: 4}
+  - {x: 6, y: 4}
+  - {x: 4, y: 4}
+  - {x: 2, y: 4}
+  - {x: 0, y: 4}
   duration: 0.1
 --- !u!114 &4959143794332262223
 MonoBehaviour:

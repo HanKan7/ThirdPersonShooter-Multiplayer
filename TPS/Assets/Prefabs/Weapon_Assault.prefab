@@ -975,8 +975,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7735745599564150037}
   - component: {fileID: 7735745599564150036}
-  - component: {fileID: 9138084973451181217}
   - component: {fileID: -8742419842949868371}
+  - component: {fileID: 6548464274042579759}
   m_Layer: 11
   m_Name: Weapon_Assault
   m_TagString: Untagged
@@ -1033,39 +1033,6 @@ MonoBehaviour:
   magazine: {fileID: 7594962797288914299}
   ammoCount: 25
   clipSize: 25
---- !u!114 &9138084973451181217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7735745599564150038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 758d3887086b410469b777abd7bc09e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCamera: {fileID: 0}
-  cameraShake: {fileID: 0}
-  rigController: {fileID: 0}
-  recoilPattern:
-  - {x: 10, y: 3.5}
-  - {x: 8, y: 3.5}
-  - {x: 6, y: 3.5}
-  - {x: 4, y: 3.5}
-  - {x: 2, y: 3.5}
-  - {x: 0, y: 3.5}
-  - {x: -2, y: 3.5}
-  - {x: -4, y: 3.5}
-  - {x: -6, y: 3.5}
-  - {x: -8, y: 3.5}
-  - {x: -10, y: 3.5}
-  - {x: -8, y: 3.5}
-  - {x: -6, y: 3.5}
-  - {x: -4, y: 3.5}
-  - {x: -2, y: 3.5}
-  - {x: 0, y: 3.5}
-  duration: 0.1
 --- !u!114 &-8742419842949868371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1115,6 +1082,39 @@ MonoBehaviour:
   m_UseImpactDirection: 0
   m_ScaleImpactWithMass: 0
   m_ScaleImpactWithSpeed: 0
+--- !u!114 &6548464274042579759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7735745599564150038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c063bfef156e10142851d93b86535d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 0}
+  cameraShake: {fileID: 0}
+  rigController: {fileID: 0}
+  recoilPattern:
+  - {x: -10, y: 4}
+  - {x: -8, y: 4}
+  - {x: -6, y: 4}
+  - {x: -4, y: 4}
+  - {x: -2, y: 4}
+  - {x: 0, y: 4}
+  - {x: 2, y: 4}
+  - {x: 4, y: 4}
+  - {x: 6, y: 4}
+  - {x: 8, y: 4}
+  - {x: 10, y: 4}
+  - {x: 8, y: 4}
+  - {x: 6, y: 4}
+  - {x: 4, y: 4}
+  - {x: 2, y: 4}
+  - {x: 0, y: 4}
+  duration: 0.1
 --- !u!1 &8537147209215990935
 GameObject:
   m_ObjectHideFlags: 0

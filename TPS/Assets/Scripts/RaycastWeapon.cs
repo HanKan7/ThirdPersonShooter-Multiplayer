@@ -13,8 +13,9 @@ public class RaycastWeapon : MonoBehaviour
         public  float bounce;
     }
 
+    public bool isAutomatic = false;
     public bool isFiring = false;
-    public int fireRate = 25;
+    public float fireRate = 25;
     public float bulletSpeed = 1000f;
     public float bulletDrop = 0.0f;
     public float maxBounces = 0;
@@ -66,6 +67,7 @@ public class RaycastWeapon : MonoBehaviour
 
     public void StartFiring()
     {
+        Debug.Log("Started Firing " + this.gameObject.name);
         isFiring = true;
         accumulatedTime = 0.0f;
         FireBullet();
@@ -163,8 +165,8 @@ public class RaycastWeapon : MonoBehaviour
 
     private void FireBullet()
     {
-
-        if(ammoCount <= 0)
+        Debug.Log("Fire Bullet " + this.gameObject.name);
+        if (ammoCount <= 0)
         {
             return;
         }

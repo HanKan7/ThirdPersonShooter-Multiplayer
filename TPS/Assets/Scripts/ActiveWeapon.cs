@@ -53,10 +53,16 @@ public class ActiveWeapon : MonoBehaviour
         var weapon = GetWeapon(activeWeaponIndex);
         if ((weapon && !isHolstered))
         {
-            if (Input.GetButtonDown("Fire1"))
+            //if (Input.GetButtonDown("Fire1")) //automatic
+            //{
+            //    Debug.Log("Firing " + equipped_Weapon[activeWeaponIndex].name);
+            //    weapon.StartFiring();
+            //}
+            if (Input.GetMouseButtonDown(0)) //automatic
             {
                 Debug.Log("Firing " + equipped_Weapon[activeWeaponIndex].name);
                 weapon.StartFiring();
+                
             }
             if (weapon.isFiring)
             {
@@ -64,7 +70,11 @@ public class ActiveWeapon : MonoBehaviour
                 //weapon.UpdateBullets(Time.deltaTime);
             }
             
-            if (Input.GetButtonUp("Fire1"))
+            //if (Input.GetButtonUp("Fire1"))
+            //{
+            //    weapon.StopFiring();
+            //}
+            if (Input.GetMouseButtonUp(0))
             {
                 weapon.StopFiring();
             }
@@ -91,16 +101,16 @@ public class ActiveWeapon : MonoBehaviour
     public void Equip(RaycastWeapon newWeapon)
     {
         int weaponSlotIndex = (int)newWeapon.weaponSlot;
-        Debug.Log("Weapon index " + weaponSlotIndex);
         if (weaponSlotIndex == 0) isPrimaryEquipped = true;
         if (weaponSlotIndex == 1) isSecondaryEquipped = true;
-        var weapon = GetWeapon(weaponSlotIndex);
+        RaycastWeapon weapon = GetWeapon(weaponSlotIndex);
         if (weapon)
         {
-            Destroy(weapon.gameObject);   
+            //Destroy(weapon.gameObject,0.001f);   
+            weapon = null;
         }
         weapon = newWeapon;
-        Debug.Log("Weapon name = " + weapon.gameObject.name);
+        //Debug.Log("Weapon name = " + weapon.gameObject.name);
         weapon.raycastDestiation = crossHairTarget;
         weapon.recoil.playerCamera = playerCamera;
         weapon.recoil.rigController = rigController;

@@ -22,11 +22,6 @@ public class CharacterAiming : MonoBehaviour
         weapon = GetComponentInChildren<RaycastWeapon>();
     }
 
-    private void LateUpdate()
-    {
-
-    }
-
 
     void FixedUpdate()
     {
@@ -39,7 +34,6 @@ public class CharacterAiming : MonoBehaviour
         //    aimLayer.weight -= Time.deltaTime / aimDuration;
         //}
 
-      
         float yawCamera = mainCamera.transform.rotation.eulerAngles.y;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, yawCamera, 0), turnSpeed * Time.fixedDeltaTime);
     }

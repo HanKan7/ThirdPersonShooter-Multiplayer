@@ -37,7 +37,7 @@ public class ReloadWeapon : MonoBehaviour
 
     void OnAnimationEvent(string eventName)
     {
-        Debug.Log(eventName);
+        //Debug.Log(eventName);
         switch (eventName)
         {
             case "detach_magazine":
@@ -70,6 +70,7 @@ public class ReloadWeapon : MonoBehaviour
         GameObject droppedMagazine = Instantiate(magHand, magHand.transform.position, magHand.transform.rotation);
         droppedMagazine.AddComponent<Rigidbody>();
         magHand.SetActive(false);
+        Destroy(droppedMagazine, 10f);
     }
     void RefillMag()
     {
