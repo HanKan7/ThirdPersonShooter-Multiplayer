@@ -27957,6 +27957,8 @@ MonoBehaviour:
   stepDown: 0.3
   airControl: 2.5
   jumpDamp: 0.5
+  groundSpeed: 1
+  pushPower: 2
 --- !u!114 &219019905375522239
 MonoBehaviour:
   m_ObjectHideFlags: 0

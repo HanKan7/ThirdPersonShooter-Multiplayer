@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +20,8 @@ public class CharacterLocomotion : MonoBehaviour
     Vector3 velocity;
     bool isJumping;
 
+    int isSprintingParam = Animator.StringToHash("isSprinting");
+
     Vector3 rootMotion;
 
     // Start is called before the first frame update
@@ -37,10 +40,18 @@ public class CharacterLocomotion : MonoBehaviour
         animator.SetFloat("inputX", input.x);
         animator.SetFloat("inputY", input.y);
 
+        UpdateIsSprinting();
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }
+    }
+
+    private void UpdateIsSprinting()
+    {
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift);
+        animator.SetBool(isSprintingParam, isSprinting);
     }
 
     private void OnAnimatorMove()
