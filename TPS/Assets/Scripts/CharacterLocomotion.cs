@@ -15,6 +15,7 @@ public class CharacterLocomotion : MonoBehaviour
 
     Animator animator;
     CharacterController cc;
+    CharacterAiming characterAiming;
     Vector2 input;
 
     Vector3 velocity;
@@ -36,6 +37,7 @@ public class CharacterLocomotion : MonoBehaviour
         cc = GetComponent<CharacterController>();
         activeWeapon = GetComponent<ActiveWeapon>();
         reloadWeapon = GetComponent<ReloadWeapon>();
+        characterAiming = GetComponent<CharacterAiming>();
     }
 
     // Update is called once per frame
@@ -63,7 +65,8 @@ public class CharacterLocomotion : MonoBehaviour
         bool isFiring = activeWeapon.isFiring();
         bool isReloading = reloadWeapon.isReloading;
         bool isChangingWeapon = activeWeapon.isChangingWeapon;
-        return isSprinting && !isFiring && !isReloading && !isChangingWeapon;
+        bool isAiming = characterAiming.isAiming;
+        return isSprinting && !isFiring && !isReloading && !isChangingWeapon && !isAiming;
     }
 
     private void UpdateIsSprinting()

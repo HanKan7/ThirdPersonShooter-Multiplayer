@@ -21,7 +21,7 @@ public class ActiveWeapon : MonoBehaviour
     public RaycastWeapon[] equipped_Weapon = new RaycastWeapon[2];
 
     public Animator rigController;
-    public CinemachineFreeLook playerCamera;
+    public CharacterAiming characterAiming;
     public AmmoWidget ammoWidget;
 
 
@@ -148,7 +148,7 @@ public class ActiveWeapon : MonoBehaviour
         weapon = newWeapon;
         //Debug.Log("Weapon name = " + weapon.gameObject.name);
         weapon.raycastDestiation = crossHairTarget;
-        weapon.recoil.playerCamera = playerCamera;
+        weapon.recoil.characterAiming = characterAiming;
         weapon.recoil.rigController = rigController;
         weapon.transform.SetParent(weaponSlots[weaponSlotIndex], false);
         //weapon.transform.localPosition = Vector3.zero;
