@@ -24,12 +24,20 @@ public class ActiveWeapon : MonoBehaviour
     public CinemachineFreeLook playerCamera;
     public AmmoWidget ammoWidget;
 
+
+    public bool isChangingWeapon = false;
+    ReloadWeapon reloadWeapon;
+
+
+
+
     //AnimatorOverrideController overrideAnim;
 
     // Start is called before the first frame update
     void Start()
     {    
         RaycastWeapon existingWeapon = GetComponentInChildren<RaycastWeapon>();
+        reloadWeapon = GetComponent<ReloadWeapon>();
         if (existingWeapon)
         {
             Equip(existingWeapon);
@@ -58,13 +66,13 @@ public class ActiveWeapon : MonoBehaviour
             //    Debug.Log("Firing " + equipped_Weapon[activeWeaponIndex].name);
             //    weapon.StartFiring();
             //}
-            if (Input.GetMouseButtonDown(0)) //automatic
+            if (Input.GetMouseButtonDown(0) && !Input.GetKey(KeyCode.LeftShift) && !reloadWeapon.isReloading) //automatic
             {
                 Debug.Log("Firing " + equipped_Weapon[activeWeaponIndex].name);
                 weapon.StartFiring();
                 
             }
-            if (weapon.isFiring)
+            if (Input.GetMouseButton(0) && weapon.isAutomatic && !Input.GetKey(KeyCode.LeftShift) && !reloadWeapon.isReloading)
             {
                 weapon.UpdateFiring(Time.deltaTime);
                 //weapon.UpdateBullets(Time.deltaTime);
@@ -95,7 +103,35 @@ public class ActiveWeapon : MonoBehaviour
             ammoWidget.ammoText.text = equipped_Weapon[1].ammoCount.ToString();
             SetActiveWeapon(WeaponSlot.Secondary);
         }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            var getWeapon = GetWeapon(activeWeaponIndex);
+            if (getWeapon)
+            {
+                if ((int)getWeapon.weaponSlot == 0)
+                {
+                    ammoWidget.ammoText.text = equipped_Weapon[1].ammoCount.ToString();
+                    SetActiveWeapon(WeaponSlot.Secondary);
+                }
+                if ((int)getWeapon.weaponSlot == 1)
+                {
+                    ammoWidget.ammoText.text = equipped_Weapon[0].ammoCount.ToString();
+                    SetActiveWeapon(WeaponSlot.Primary);
+                }
+            }
+            
+        }
 
+    }
+
+    public bool isFiring()
+    {
+        RaycastWeapon currentWeapon = GetActiveWeapon();
+        if (!currentWeapon)
+        {
+            return false;
+        }
+        return currentWeapon.isFiring;
     }
 
     public void Equip(RaycastWeapon newWeapon)
@@ -146,6 +182,7 @@ public class ActiveWeapon : MonoBehaviour
 
     IEnumerator SwitchWeapon(int holsterIndex, int activateIndex)
     {
+        rigController.SetInteger("weapon_index", activateIndex);
         yield return StartCoroutine(HolsterWeapon(holsterIndex));
         yield return StartCoroutine(ActivateWeapon(activateIndex));
         activeWeaponIndex = activateIndex;
@@ -153,6 +190,7 @@ public class ActiveWeapon : MonoBehaviour
 
     IEnumerator HolsterWeapon(int index)
     {
+        isChangingWeapon = true;
         isHolstered = true;
         var weapon = GetWeapon(index);
         if (weapon)
@@ -163,10 +201,11 @@ public class ActiveWeapon : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             } while (rigController.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
         }
+        isChangingWeapon = false;
     }
     IEnumerator ActivateWeapon(int index)
     {
-
+        isChangingWeapon = true;
         var weapon = GetWeapon(index);
         if (weapon)
         {
@@ -178,6 +217,7 @@ public class ActiveWeapon : MonoBehaviour
             } while (rigController.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
             isHolstered = false;
         }
+        isChangingWeapon = false;
     }
 
 

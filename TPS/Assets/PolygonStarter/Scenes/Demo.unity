@@ -24202,7 +24202,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 0
-    m_SensorSize: {x: 1.7782608, y: 1}
+    m_SensorSize: {x: 1.7784679, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -24218,7 +24218,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892615363}
-  m_LocalRotation: {x: 0.13837413, y: -0.000000019052255, z: 0.0000000026619469, w: 0.99038005}
+  m_LocalRotation: {x: 0.13837415, y: 0.000000019052255, z: -0.0000000026619478, w: 0.99038005}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -27795,6 +27795,7 @@ MonoBehaviour:
   rigController: {fileID: 204948679}
   playerCamera: {fileID: 1630747068}
   ammoWidget: {fileID: 1276394356}
+  isChangingWeapon: 0
 --- !u!114 &218894866883941409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27812,6 +27813,7 @@ MonoBehaviour:
   activeWeapon: {fileID: 218894866883941408}
   leftHand: {fileID: 223661111658830249}
   ammoWidget: {fileID: 1276394356}
+  isReloading: 0
 --- !u!143 &218894866883941410
 CharacterController:
   m_ObjectHideFlags: 0
@@ -27959,6 +27961,7 @@ MonoBehaviour:
   jumpDamp: 0.5
   groundSpeed: 1
   pushPower: 2
+  rigController: {fileID: 204948679}
 --- !u!114 &219019905375522239
 MonoBehaviour:
   m_ObjectHideFlags: 0

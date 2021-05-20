@@ -24,11 +24,18 @@ public class CharacterLocomotion : MonoBehaviour
 
     Vector3 rootMotion;
 
+    public Animator rigController;
+
+    ActiveWeapon activeWeapon;
+    ReloadWeapon reloadWeapon;
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         cc = GetComponent<CharacterController>();
+        activeWeapon = GetComponent<ActiveWeapon>();
+        reloadWeapon = GetComponent<ReloadWeapon>();
     }
 
     // Update is called once per frame
@@ -48,10 +55,22 @@ public class CharacterLocomotion : MonoBehaviour
         }
     }
 
-    private void UpdateIsSprinting()
+    
+
+    bool IsSprinting()
     {
         bool isSprinting = Input.GetKey(KeyCode.LeftShift);
+        bool isFiring = activeWeapon.isFiring();
+        bool isReloading = reloadWeapon.isReloading;
+        bool isChangingWeapon = activeWeapon.isChangingWeapon;
+        return isSprinting && !isFiring && !isReloading && !isChangingWeapon;
+    }
+
+    private void UpdateIsSprinting()
+    {
+        bool isSprinting = IsSprinting();
         animator.SetBool(isSprintingParam, isSprinting);
+        rigController.SetBool(isSprintingParam, isSprinting);
     }
 
     private void OnAnimatorMove()

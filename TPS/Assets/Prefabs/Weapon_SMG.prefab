@@ -19627,6 +19627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e4948b9951b9147be2160cf1ee8d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAutomatic: 1
   isFiring: 0
   fireRate: 5
   bulletSpeed: 100
