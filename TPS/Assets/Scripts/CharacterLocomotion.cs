@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CharacterLocomotion : MonoBehaviour
 {
+
     public float jumpHeight;
     public float gravity;
     public float stepDown;
@@ -59,7 +60,7 @@ public class CharacterLocomotion : MonoBehaviour
 
     
 
-    bool IsSprinting()
+    public bool IsSprinting()
     {
         bool isSprinting = Input.GetKey(KeyCode.LeftShift);
         bool isFiring = activeWeapon.isFiring();

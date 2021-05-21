@@ -7,7 +7,7 @@ using Cinemachine;
 public class CharacterAiming : MonoBehaviour
 {
 
-
+    
     public float turnSpeed = 15f;
     public float aimDuration = 0.3f;
     
@@ -61,4 +61,5 @@ public class CharacterAiming : MonoBehaviour
         float yawCamera = mainCamera.transform.rotation.eulerAngles.y;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, yawCamera, 0), turnSpeed * Time.fixedDeltaTime);
     }
+    
 }

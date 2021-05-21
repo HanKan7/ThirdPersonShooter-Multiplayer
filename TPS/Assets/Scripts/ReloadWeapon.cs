@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ReloadWeapon : MonoBehaviour
 {
+    
     public Animator rigController;
     public WeaponAnimationEvents animationEvents;
 
@@ -88,4 +89,5 @@ public class ReloadWeapon : MonoBehaviour
         ammoWidget.Refresh(weapon.ammoCount);
         isReloading = false;
     }
+    
 }

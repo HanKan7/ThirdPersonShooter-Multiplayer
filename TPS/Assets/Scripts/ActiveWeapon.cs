@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
-using UnityEditor.Animations;
+//using UnityEngine.Animations.Rigging;
+//using UnityEditor.Animations;
 using Cinemachine;
 
 public class ActiveWeapon : MonoBehaviour
@@ -27,6 +27,7 @@ public class ActiveWeapon : MonoBehaviour
 
     public bool isChangingWeapon = false;
     ReloadWeapon reloadWeapon;
+    CharacterLocomotion characterLocomotion;
 
 
 
@@ -37,6 +38,7 @@ public class ActiveWeapon : MonoBehaviour
     void Start()
     {    
         RaycastWeapon existingWeapon = GetComponentInChildren<RaycastWeapon>();
+        characterLocomotion = GetComponent<CharacterLocomotion>();
         reloadWeapon = GetComponent<ReloadWeapon>();
         if (existingWeapon)
         {
@@ -66,14 +68,15 @@ public class ActiveWeapon : MonoBehaviour
             //    Debug.Log("Firing " + equipped_Weapon[activeWeaponIndex].name);
             //    weapon.StartFiring();
             //}
-            if (Input.GetMouseButtonDown(0) && !Input.GetKey(KeyCode.LeftShift) && !reloadWeapon.isReloading) //automatic
+            if (Input.GetMouseButtonDown(0) && !characterLocomotion.IsSprinting() && !reloadWeapon.isReloading) //automatic
             {
                 Debug.Log("Firing " + equipped_Weapon[activeWeaponIndex].name);
                 weapon.StartFiring();
                 
             }
-            if (Input.GetMouseButton(0) && weapon.isAutomatic && !Input.GetKey(KeyCode.LeftShift) && !reloadWeapon.isReloading)
+            if (Input.GetMouseButton(0) && weapon.isAutomatic && !characterLocomotion.IsSprinting() && !reloadWeapon.isReloading)
             {
+                Debug.Log("Firing continous " + equipped_Weapon[activeWeaponIndex].name);
                 weapon.UpdateFiring(Time.deltaTime);
                 //weapon.UpdateBullets(Time.deltaTime);
             }
@@ -103,12 +106,12 @@ public class ActiveWeapon : MonoBehaviour
             ammoWidget.ammoText.text = equipped_Weapon[1].ammoCount.ToString();
             SetActiveWeapon(WeaponSlot.Secondary);
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && isPrimaryEquipped && isSecondaryEquipped)
         {
             var getWeapon = GetWeapon(activeWeaponIndex);
             if (getWeapon)
             {
-                if ((int)getWeapon.weaponSlot == 0)
+                if ((int)getWeapon.weaponSlot == 0 )
                 {
                     ammoWidget.ammoText.text = equipped_Weapon[1].ammoCount.ToString();
                     SetActiveWeapon(WeaponSlot.Secondary);
@@ -232,4 +235,5 @@ public class ActiveWeapon : MonoBehaviour
     //    recorder.SaveToClip(weapon.weaponAnimation);
     //    UnityEditor.AssetDatabase.SaveAssets();
     //}
+
 }

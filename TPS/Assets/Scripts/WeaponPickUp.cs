@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponPickUp : MonoBehaviour
 {
+    
     public RaycastWeapon weaponPrefab;
 
     private void OnTriggerEnter(Collider other)
@@ -15,4 +16,5 @@ public class WeaponPickUp : MonoBehaviour
             activeWeapon.Equip(newWeapon);
         }
     }
+    
 }

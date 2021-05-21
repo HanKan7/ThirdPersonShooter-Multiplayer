@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RaycastWeapon : MonoBehaviour
 {
+
     class Bullet
     {
         public float time;
@@ -215,4 +216,5 @@ public class RaycastWeapon : MonoBehaviour
     {
         isFiring = false;
     }
+
 }
