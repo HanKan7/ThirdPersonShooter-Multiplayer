@@ -4,8 +4,9 @@ using UnityEngine;
 //using UnityEngine.Animations.Rigging;
 //using UnityEditor.Animations;
 using Cinemachine;
+using Photon.Pun;
 
-public class ActiveWeapon : MonoBehaviour
+public class ActiveWeapon : MonoBehaviourPunCallbacks
 {
 
     public enum WeaponSlot
@@ -40,6 +41,8 @@ public class ActiveWeapon : MonoBehaviour
         RaycastWeapon existingWeapon = GetComponentInChildren<RaycastWeapon>();
         characterLocomotion = GetComponent<CharacterLocomotion>();
         reloadWeapon = GetComponent<ReloadWeapon>();
+        ammoWidget = FindObjectOfType<AmmoWidget>();
+        crossHairTarget = FindObjectOfType<CrossHairTarget>().transform;
         if (existingWeapon)
         {
             Equip(existingWeapon);
@@ -60,69 +63,73 @@ public class ActiveWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var weapon = GetWeapon(activeWeaponIndex);
-        if ((weapon && !isHolstered))
+        if (photonView.IsMine)
         {
-            //if (Input.GetButtonDown("Fire1")) //automatic
-            //{
-            //    Debug.Log("Firing " + equipped_Weapon[activeWeaponIndex].name);
-            //    weapon.StartFiring();
-            //}
-            if (Input.GetMouseButtonDown(0) && !characterLocomotion.IsSprinting() && !reloadWeapon.isReloading) //automatic
+
+            var weapon = GetWeapon(activeWeaponIndex);
+            if ((weapon && !isHolstered))
             {
-                Debug.Log("Firing " + equipped_Weapon[activeWeaponIndex].name);
-                weapon.StartFiring();
+                //if (Input.GetButtonDown("Fire1")) //automatic
+                //{
+                //    Debug.Log("Firing " + equipped_Weapon[activeWeaponIndex].name);
+                //    weapon.StartFiring();
+                //}
+                if (Input.GetMouseButtonDown(0) && !characterLocomotion.IsSprinting() && !reloadWeapon.isReloading) //automatic
+                {
+                    Debug.Log("Firing " + equipped_Weapon[activeWeaponIndex].name);
+                    weapon.StartFiring();
                 
-            }
-            if (Input.GetMouseButton(0) && weapon.isAutomatic && !characterLocomotion.IsSprinting() && !reloadWeapon.isReloading)
-            {
-                Debug.Log("Firing continous " + equipped_Weapon[activeWeaponIndex].name);
-                weapon.UpdateFiring(Time.deltaTime);
-                //weapon.UpdateBullets(Time.deltaTime);
-            }
+                }
+                if (Input.GetMouseButton(0) && weapon.isAutomatic && !characterLocomotion.IsSprinting() && !reloadWeapon.isReloading)
+                {
+                    Debug.Log("Firing continous " + equipped_Weapon[activeWeaponIndex].name);
+                    weapon.UpdateFiring(Time.deltaTime);
+                    //weapon.UpdateBullets(Time.deltaTime);
+                }
             
-            //if (Input.GetButtonUp("Fire1"))
-            //{
-            //    weapon.StopFiring();
-            //}
-            if (Input.GetMouseButtonUp(0))
-            {
-                weapon.StopFiring();
+                //if (Input.GetButtonUp("Fire1"))
+                //{
+                //    weapon.StopFiring();
+                //}
+                if (Input.GetMouseButtonUp(0))
+                {
+                    weapon.StopFiring();
+                }
+
             }
 
-        }
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            ToggleActiveWeapon();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha1)    && isPrimaryEquipped)
-        {
-            ammoWidget.ammoText.text = equipped_Weapon[0].ammoCount.ToString();
-            SetActiveWeapon(WeaponSlot.Primary);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2)    && isSecondaryEquipped)
-        {
-            ammoWidget.ammoText.text = equipped_Weapon[1].ammoCount.ToString();
-            SetActiveWeapon(WeaponSlot.Secondary);
-        }
-        if (Input.GetKeyDown(KeyCode.Q) && isPrimaryEquipped && isSecondaryEquipped)
-        {
-            var getWeapon = GetWeapon(activeWeaponIndex);
-            if (getWeapon)
+            if (Input.GetKeyDown(KeyCode.X))
             {
-                if ((int)getWeapon.weaponSlot == 0 )
-                {
-                    ammoWidget.ammoText.text = equipped_Weapon[1].ammoCount.ToString();
-                    SetActiveWeapon(WeaponSlot.Secondary);
-                }
-                if ((int)getWeapon.weaponSlot == 1)
-                {
-                    ammoWidget.ammoText.text = equipped_Weapon[0].ammoCount.ToString();
-                    SetActiveWeapon(WeaponSlot.Primary);
-                }
+                ToggleActiveWeapon();
             }
+            if (Input.GetKeyDown(KeyCode.Alpha1)    && isPrimaryEquipped)
+            {
+                ammoWidget.ammoText.text = equipped_Weapon[0].ammoCount.ToString();
+                SetActiveWeapon(WeaponSlot.Primary);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2)    && isSecondaryEquipped)
+            {
+                ammoWidget.ammoText.text = equipped_Weapon[1].ammoCount.ToString();
+                SetActiveWeapon(WeaponSlot.Secondary);
+            }
+            if (Input.GetKeyDown(KeyCode.Q) && isPrimaryEquipped && isSecondaryEquipped)
+            {
+                var getWeapon = GetWeapon(activeWeaponIndex);
+                if (getWeapon)
+                {
+                    if ((int)getWeapon.weaponSlot == 0 )
+                    {
+                        ammoWidget.ammoText.text = equipped_Weapon[1].ammoCount.ToString();
+                        SetActiveWeapon(WeaponSlot.Secondary);
+                    }
+                    if ((int)getWeapon.weaponSlot == 1)
+                    {
+                        ammoWidget.ammoText.text = equipped_Weapon[0].ammoCount.ToString();
+                        SetActiveWeapon(WeaponSlot.Primary);
+                    }
+                }
             
+            }
         }
 
     }

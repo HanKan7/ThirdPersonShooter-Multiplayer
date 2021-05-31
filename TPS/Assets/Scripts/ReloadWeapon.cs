@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class ReloadWeapon : MonoBehaviour
+public class ReloadWeapon : MonoBehaviourPunCallbacks
 {
     
     public Animator rigController;
@@ -18,24 +19,27 @@ public class ReloadWeapon : MonoBehaviour
     private void Start()
     {
         animationEvents.WeaponAnimationEvent.AddListener(OnAnimationEvent);
+        ammoWidget = FindObjectOfType<AmmoWidget>();
     }
 
     private void Update()
     {
-        RaycastWeapon weapon = activeWeapon.GetActiveWeapon();
-        if (weapon)
+        if (photonView.IsMine)
         {
-            if (Input.GetKeyDown(KeyCode.R) || weapon.ammoCount <= 0)
+            RaycastWeapon weapon = activeWeapon.GetActiveWeapon();
+            if (weapon)
             {
-                isReloading = true;
-                rigController.SetTrigger("reload_weapon");
+                if (Input.GetKeyDown(KeyCode.R) || weapon.ammoCount <= 0)
+                {
+                    isReloading = true;
+                    rigController.SetTrigger("reload_weapon");
+                }
+                if (weapon.isFiring)
+                {
+                    ammoWidget.Refresh(weapon.ammoCount);
+                }
             }
-            if (weapon.isFiring)
-            {
-                ammoWidget.Refresh(weapon.ammoCount);
-            }
-        }
-       
+        } 
     }
 
     void OnAnimationEvent(string eventName)

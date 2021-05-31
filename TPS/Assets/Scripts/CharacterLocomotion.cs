@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class CharacterLocomotion : MonoBehaviour
+public class CharacterLocomotion : MonoBehaviourPunCallbacks
 {
 
     public float jumpHeight;
@@ -44,18 +45,22 @@ public class CharacterLocomotion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        input.x = Input.GetAxis("Horizontal");
-        input.y = Input.GetAxis("Vertical");
-
-        animator.SetFloat("inputX", input.x);
-        animator.SetFloat("inputY", input.y);
-
-        UpdateIsSprinting();
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (photonView.IsMine)
         {
-            Jump();
+            input.x = Input.GetAxis("Horizontal");
+            input.y = Input.GetAxis("Vertical");
+
+            animator.SetFloat("inputX", input.x);
+            animator.SetFloat("inputY", input.y);
+
+            UpdateIsSprinting();
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Jump();
+            }
         }
+        
     }
 
     

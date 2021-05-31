@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using Cinemachine;
+using Photon.Pun;
 
-public class CharacterAiming : MonoBehaviour
+public class CharacterAiming : MonoBehaviourPunCallbacks
 {
 
     
     public float turnSpeed = 15f;
     public float aimDuration = 0.3f;
     
-    Camera mainCamera;
+     public Camera mainCamera;
     RaycastWeapon weapon;
     Animator animator;
     int isAimingParam = Animator.StringToHash("isAiming");
@@ -19,6 +20,7 @@ public class CharacterAiming : MonoBehaviour
 
     public Transform cameraLookAt;
     public AxisState xAxis , yAxis;
+    public CinemachineVirtualCamera vCam;
 
     ActiveWeapon activeWeapon;
 
@@ -31,6 +33,10 @@ public class CharacterAiming : MonoBehaviour
         weapon = GetComponentInChildren<RaycastWeapon>();
         animator = GetComponent<Animator>();
         activeWeapon = GetComponent<ActiveWeapon>();
+        if (!photonView.IsMine)
+        {
+            vCam.enabled = false;
+        }
     }
 
     private void Update()
@@ -55,11 +61,15 @@ public class CharacterAiming : MonoBehaviour
         //{
         //    aimLayer.weight -= Time.deltaTime / aimDuration;
         //}
-        xAxis.Update(Time.fixedDeltaTime);
-        yAxis.Update(Time.fixedDeltaTime);
-        cameraLookAt.eulerAngles = new Vector3(yAxis.Value, xAxis.Value, 0);
-        float yawCamera = mainCamera.transform.rotation.eulerAngles.y;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, yawCamera, 0), turnSpeed * Time.fixedDeltaTime);
+        if(photonView.IsMine)
+       {
+            xAxis.Update(Time.fixedDeltaTime);
+            yAxis.Update(Time.fixedDeltaTime);
+            cameraLookAt.eulerAngles = new Vector3(yAxis.Value, xAxis.Value, 0);
+            float yawCamera = mainCamera.transform.rotation.eulerAngles.y;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, yawCamera, 0), turnSpeed * Time.fixedDeltaTime);
+       }
+        
     }
     
 }
