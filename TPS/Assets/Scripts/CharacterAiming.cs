@@ -28,7 +28,7 @@ public class CharacterAiming : MonoBehaviourPunCallbacks
     void Start()
     {
         mainCamera = Camera.main;
-        Cursor.visible = false;
+        //Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         weapon = GetComponentInChildren<RaycastWeapon>();
         animator = GetComponent<Animator>();
@@ -43,7 +43,7 @@ public class CharacterAiming : MonoBehaviourPunCallbacks
     {
         isAiming = Input.GetMouseButton(1);
         animator.SetBool(isAimingParam, isAiming);
-        var weapon = activeWeapon.GetActiveWeapon();
+        weapon = activeWeapon.GetActiveWeapon();
         if (weapon)
         {
             weapon.recoil.recoilModifier = isAiming ? 0.6f : 1.0f;

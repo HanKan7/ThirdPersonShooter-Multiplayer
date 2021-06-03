@@ -106,11 +106,13 @@ public class ActiveWeapon : MonoBehaviourPunCallbacks
             {
                 ammoWidget.ammoText.text = equipped_Weapon[0].ammoCount.ToString();
                 SetActiveWeapon(WeaponSlot.Primary);
+                //photonView.RPC("SetActiveWeapon", RpcTarget.All, WeaponSlot.Primary);
             }
             if (Input.GetKeyDown(KeyCode.Alpha2)    && isSecondaryEquipped)
             {
                 ammoWidget.ammoText.text = equipped_Weapon[1].ammoCount.ToString();
                 SetActiveWeapon(WeaponSlot.Secondary);
+                //photonView.RPC("SetActiveWeapon", RpcTarget.All, WeaponSlot.Secondary);
             }
             if (Input.GetKeyDown(KeyCode.Q) && isPrimaryEquipped && isSecondaryEquipped)
             {
@@ -121,11 +123,13 @@ public class ActiveWeapon : MonoBehaviourPunCallbacks
                     {
                         ammoWidget.ammoText.text = equipped_Weapon[1].ammoCount.ToString();
                         SetActiveWeapon(WeaponSlot.Secondary);
+                        //photonView.RPC("SetActiveWeapon", RpcTarget.All, WeaponSlot.Secondary);
                     }
                     if ((int)getWeapon.weaponSlot == 1)
                     {
                         ammoWidget.ammoText.text = equipped_Weapon[0].ammoCount.ToString();
                         SetActiveWeapon(WeaponSlot.Primary);
+                        //photonView.RPC("SetActiveWeapon", RpcTarget.All, WeaponSlot.Primary);
                     }
                 }
             
@@ -166,6 +170,7 @@ public class ActiveWeapon : MonoBehaviourPunCallbacks
         
         equipped_Weapon[weaponSlotIndex] = weapon;
         SetActiveWeapon(newWeapon.weaponSlot);
+       // photonView.RPC("SetActiveWeapon", RpcTarget.All, newWeapon.weaponSlot);
         ammoWidget.Refresh(weapon.ammoCount);
     }
 
@@ -182,6 +187,7 @@ public class ActiveWeapon : MonoBehaviourPunCallbacks
         }
     }
 
+    
     void SetActiveWeapon(WeaponSlot weaponSlot)
     {
         int holsterIndex = activeWeaponIndex;
@@ -229,6 +235,7 @@ public class ActiveWeapon : MonoBehaviourPunCallbacks
         }
         isChangingWeapon = false;
     }
+
 
 
     //[ContextMenu("Save Weapon pose")]
