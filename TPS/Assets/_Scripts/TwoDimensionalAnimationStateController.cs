@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class TwoDimensionalAnimationStateController : MonoBehaviour
+public class TwoDimensionalAnimationStateController : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     Animator anim;
@@ -210,33 +211,37 @@ public class TwoDimensionalAnimationStateController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool forwardPressed = Input.GetKey(KeyCode.W);
-        bool leftPressed = Input.GetKey(KeyCode.A);
-        bool rightPressed = Input.GetKey(KeyCode.D);
-        bool backPressed = Input.GetKey(KeyCode.S);
-        bool runPressed = Input.GetKey(KeyCode.LeftShift);
-
-        //Debug.Log("Forward Pressed " + forwardPressed + " " + " Backward Pressed " + backPressed);
-        float currentMaxVelocity = runPressed ? maximumRunVelocity : maximumWalkVelocity;
-
-        changeVelocity( forwardPressed,  leftPressed,  rightPressed, backPressed,  runPressed,  currentMaxVelocity);
-        lockOrResetVelocity( forwardPressed,  leftPressed,  rightPressed, backPressed, runPressed,  currentMaxVelocity);
-
-        anim.SetFloat(velocityZHash, velocityZ);
-        anim.SetFloat(velocityXHash, velocityX);
-
-        Vector3 movementVector = new Vector3();
-        movementVector += transform.forward * velocityZ;
-        movementVector += transform.right * velocityX;
-        //Debug.Log("Magnitude of Mvector " + movementVector.magnitude + " moveVector = " + movementVector);
-        //Debug.Log("Magnitude of normalised Mvector " + movementVector.normalized.magnitude + " moveVectorNormal = " + movementVector.normalized);
-        if (runPressed)
+        if (photonView.IsMine)
         {
-            cc.Move(movementVector.normalized * runfactor * speed * Time.deltaTime);
-        }
-        else
-        {
-            cc.Move(movementVector.normalized * speed * Time.deltaTime);
+
+            bool forwardPressed = Input.GetKey(KeyCode.W);
+            bool leftPressed = Input.GetKey(KeyCode.A);
+            bool rightPressed = Input.GetKey(KeyCode.D);
+            bool backPressed = Input.GetKey(KeyCode.S);
+            bool runPressed = Input.GetKey(KeyCode.LeftShift);
+
+            //Debug.Log("Forward Pressed " + forwardPressed + " " + " Backward Pressed " + backPressed);
+            float currentMaxVelocity = runPressed ? maximumRunVelocity : maximumWalkVelocity;
+
+            changeVelocity( forwardPressed,  leftPressed,  rightPressed, backPressed,  runPressed,  currentMaxVelocity);
+            lockOrResetVelocity( forwardPressed,  leftPressed,  rightPressed, backPressed, runPressed,  currentMaxVelocity);
+
+            anim.SetFloat(velocityZHash, velocityZ);
+            anim.SetFloat(velocityXHash, velocityX);
+
+            Vector3 movementVector = new Vector3();
+            movementVector += transform.forward * velocityZ;
+            movementVector += transform.right * velocityX;
+            //Debug.Log("Magnitude of Mvector " + movementVector.magnitude + " moveVector = " + movementVector);
+            //Debug.Log("Magnitude of normalised Mvector " + movementVector.normalized.magnitude + " moveVectorNormal = " + movementVector.normalized);
+            if (runPressed)
+            {
+                cc.Move(movementVector.normalized * runfactor * speed * Time.deltaTime);
+            }
+            else
+            {
+                cc.Move(movementVector.normalized * speed * Time.deltaTime);
+            }
         }
         
     }

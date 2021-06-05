@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Cinemachine;
 
-public class TopDownCharacterMover : MonoBehaviour
+public class TopDownCharacterMover : MonoBehaviourPunCallbacks
 {
 
     InputHandler input;
@@ -24,6 +26,9 @@ public class TopDownCharacterMover : MonoBehaviour
     [SerializeField]
     GameObject player;
 
+    [SerializeField]
+    LayerMask ground;
+
     [Header("Material Change Attributes")]
     [SerializeField]
     SkinnedMeshRenderer playerMesh;
@@ -33,19 +38,35 @@ public class TopDownCharacterMover : MonoBehaviour
     float rayDistance = 100f;
     [SerializeField] Material[] playerMaterials;
 
+    [Header("Cinecmachine")]
+    [SerializeField]
+    GameObject vcam;
+    
+
     // Start is called before the first frame update
     void Start()
     {
-        input = GetComponent<InputHandler>();
-        cam = Camera.main;
+        if (photonView.IsMine)
+        {
+            input = GetComponent<InputHandler>();
+            cam = Camera.main;
+            vcam = GameObject.Find("VCam");
+            vcam.GetComponent<CinemachineVirtualCamera>().enabled = true;
+            Transform playerTransform = this.gameObject.transform;
+            vcam.GetComponent<CinemachineVirtualCamera>().Follow = playerTransform;
+        }
     }
 
     // Update is called once per frame;
     void Update()
     {
-        var targetVector = new Vector3(input.InputVector.x, 0, input.InputVector.y);
-        RotateTowardsMouse();
-        RaycastTowardsPlayer();
+        //var targetVector = new Vector3(input.InputVector.x, 0, input.InputVector.y);
+        if (photonView.IsMine)
+        {
+            RotateTowardsMouse();
+            RaycastTowardsPlayer();
+        }
+
         ////Move in the direction we are aiming
 
         //var movementVector = MoveTowardTarget(targetVector);
@@ -60,7 +81,7 @@ public class TopDownCharacterMover : MonoBehaviour
     void RotateTowardsMouse()
     {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        if(Physics.Raycast(ray , out RaycastHit hitInfo , maxDistance: 300f))
+        if(Physics.Raycast(ray , out RaycastHit hitInfo , maxDistance: 300f , ground))
         {
             var target = hitInfo.point;
             target.y = transform.position.y;

@@ -359,7 +359,7 @@ MonoBehaviour:
   roomButton: {fileID: 1032627259}
   nameInputScreen: {fileID: 1462821644}
   nameInput: {fileID: 1462821855}
-  levelToPlay: Map1
+  levelToPlay: TopDown
   startButton: {fileID: 1462821672}
   roomTestButton: {fileID: 1462821666}
 --- !u!114 &1462821392
@@ -1842,7 +1842,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1462821854}
   m_HandleRect: {fileID: 1462821795}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

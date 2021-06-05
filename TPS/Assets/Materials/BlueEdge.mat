@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Yellow 1
-  m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: BlueEdge
+  m_Shader: {fileID: 4800000, guid: e7a63e85a04f2f649805b8fbc5850027, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -100,6 +100,6 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.7921569, g: 0.6922922, b: 0.4823529, a: 1}
-    - _Color: {r: 0.6132076, g: 0.53284556, b: 0.373131, a: 1}
+    - _Color: {r: 0.4349858, g: 0.7068598, b: 0.8018868, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Photon.Pun;
 
-public class Shooting : MonoBehaviour
+public class Shooting : MonoBehaviourPunCallbacks
 {
     public Gun[] allGuns;
     float shotTimer = 0;
@@ -33,24 +34,34 @@ public class Shooting : MonoBehaviour
 
     private void Start()
     {
-        ammoCount = allGuns[0].ammoCount;
-        ammoCountText.text = ammoCount.ToString();
-        //anim = GetComponent<Animator>();
+        if (photonView.IsMine)
+        {
+            ammoCount = allGuns[0].ammoCount;
+            ammoCountText = GameObject.Find("AmmoAmount").GetComponent<TMP_Text>();
+            ammoCountText.text = ammoCount.ToString();
+            //anim = GetComponent<Animator>();
+        }
+
     }
 
     private void Update()
     {
-        
-
-        if (Input.GetKey(KeyCode.Space) && !isReloading) {
-            shotTimer = allGuns[0].rateOfFire;
-            RateOfFire();
-        }
-        if (Input.GetKeyDown(KeyCode.R))
+        if (photonView.IsMine)
         {
-            anim.SetTrigger("isReloading");
-            isReloading = true;
+            if (Input.GetMouseButton(0) && !isReloading)
+            {
+                shotTimer = allGuns[0].rateOfFire;
+                RateOfFire();
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                anim.SetTrigger("isReloading");
+                isReloading = true;
+                //anim.SetBool("reloading", isReloading);
+            }
         }
+
+
     }
 
     void RateOfFire()
@@ -68,6 +79,7 @@ public class Shooting : MonoBehaviour
             {
                 anim.SetTrigger("isReloading");
                 isReloading = true;
+                //anim.SetBool("reloading", isReloading);
             }
             accumulatedTime -= fireInterval;
 
@@ -81,32 +93,48 @@ public class Shooting : MonoBehaviour
 
     public void Reload()
     {
-        Debug.Log("Reloading finished");
-        ammoCount = allGuns[0].ammoCount;
-        ammoCountText.text = ammoCount.ToString();
-        this.isReloading = false;
+        if (photonView.IsMine)
+        {
+            Debug.Log("Reloading finished");
+            ammoCount = allGuns[0].ammoCount;
+            ammoCountText.text = ammoCount.ToString();
+            this.isReloading = false;
+        }
+
     }
 
     void Shoot()
     {
-        muzzleFlash.Emit(1);
-        ray.origin = raycastOrigin.position;
-        ray.direction = raycastOrigin.transform.forward;
-        var tracer = Instantiate(tracerEffect, ray.origin, Quaternion.identity);
-        tracer.AddPosition(gunRaycastOrigin.position);
-        if (Physics.Raycast(ray, out hitInfo, 1000f))
+        if (photonView.IsMine)
         {
-            hitEffect.transform.position = hitInfo.point;
-            hitEffect.transform.forward = hitInfo.normal;
-            hitEffect.Emit(1);
-            tracer.transform.position = hitInfo.point;
+            muzzleFlash.Emit(1);
+            ray.origin = raycastOrigin.position;
+            ray.direction = raycastOrigin.transform.forward;
+            var tracer = Instantiate(tracerEffect, ray.origin, Quaternion.identity);
+            tracer.AddPosition(gunRaycastOrigin.position);
+            if (Physics.Raycast(ray, out hitInfo, 1000f))
+            {
+                hitEffect.transform.position = hitInfo.point;
+                hitEffect.transform.forward = hitInfo.normal;
+                hitEffect.Emit(1);
+                tracer.transform.position = hitInfo.point;
+                if (hitInfo.collider.CompareTag("Player"))
+                {
+                    GiveDamage(allGuns[0].shotDamage);
+                }
+            }
+            else
+            {
+                tracer.transform.position = notHittingPoint.position;
+            }
+            Destroy(tracer.gameObject, 0.25f);
+            ammoCount--;
+            ammoCountText.text = ammoCount.ToString();
         }
-        else
-        {
-            tracer.transform.position = notHittingPoint.position;
-        }
-        Destroy(tracer.gameObject, 0.25f);
-        ammoCount--;
-        ammoCountText.text = ammoCount.ToString();
+    }
+
+    void GiveDamage(float damageAmt)
+    {
+
     }
 }
