@@ -6,4 +6,5 @@ public class Gun : MonoBehaviour
 {
     public float rateOfFire;
     public int shotDamage;
+    public int ammoCount;
 }

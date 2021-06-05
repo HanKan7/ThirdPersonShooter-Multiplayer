@@ -24,6 +24,15 @@ public class TopDownCharacterMover : MonoBehaviour
     [SerializeField]
     GameObject player;
 
+    [Header("Material Change Attributes")]
+    [SerializeField]
+    SkinnedMeshRenderer playerMesh;
+    [SerializeField]
+    GameObject materialRaycast;
+    [SerializeField]
+    float rayDistance = 100f;
+    [SerializeField] Material[] playerMaterials;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,15 +43,18 @@ public class TopDownCharacterMover : MonoBehaviour
     // Update is called once per frame;
     void Update()
     {
-        //var targetVector = new Vector3(input.InputVector.x, 0, input.InputVector.y);
-        //Move in the direction we are aiming
+        var targetVector = new Vector3(input.InputVector.x, 0, input.InputVector.y);
+        RotateTowardsMouse();
+        RaycastTowardsPlayer();
+        ////Move in the direction we are aiming
 
-        //var movementVector =  MoveTowardTarget(targetVector);
-        //if(!rotateTowardsMouse) RotateTowardMovementVector(movementVector);
+        //var movementVector = MoveTowardTarget(targetVector);
+        //if (!rotateTowardsMouse) RotateTowardMovementVector(movementVector);
 
-        //elseRotateTowardsMouse();
-        RotateCharacter();
-        
+        //else 
+
+        //RotateCharacter();
+
     }
 
     void RotateTowardsMouse()
@@ -52,10 +64,31 @@ public class TopDownCharacterMover : MonoBehaviour
         {
             var target = hitInfo.point;
             target.y = transform.position.y;
-            player.transform.LookAt(target);
+            transform.LookAt(target);
         }
 
         
+    }
+
+    void RaycastTowardsPlayer()
+    {
+        Ray ray = new Ray();
+        ray.origin = cam.transform.position;
+        ray.direction = materialRaycast.transform.position - cam.transform.position;
+        Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.red );
+        if(Physics.Raycast(ray, out RaycastHit hit, rayDistance))
+        {
+            //Debug.Log(hit.collider.name);
+            if (!hit.collider.CompareTag("Player"))
+            {
+                playerMesh.material = playerMaterials[1];
+            }
+            else
+            {
+                playerMesh.material = playerMaterials[0];
+            }
+        }
+
     }
 
     void RotateCharacter()
@@ -72,14 +105,14 @@ public class TopDownCharacterMover : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
-    {
-        cam.transform.position = cameraPos.transform.position;
-    //    cam.transform.position = Vector3.Lerp(cam.transform.position, cameraPos.transform.position,PosLerpAmt);
-        cam.transform.rotation = cameraPos.transform.rotation;
+    //private void LateUpdate()
+    //{
+    //    cam.transform.position = cameraPos.transform.position;
+    //    cam.transform.position = Vector3.Lerp(cam.transform.position, cameraPos.transform.position, PosLerpAmt);
+    //    cam.transform.rotation = cameraPos.transform.rotation;
     //    cam.transform.rotation = Quaternion.Lerp(cam.transform.rotation, cameraPos.transform.rotation, RotLerpAmt);
-    //    cameraPos.transform.LookAt(player.transform);
-    }
+    //    //cameraPos.transform.LookAt(player.transform);
+    //}
     private void RotateTowardMovementVector( Vector3 movementVector )
     {
         if (movementVector.magnitude == 0) return;

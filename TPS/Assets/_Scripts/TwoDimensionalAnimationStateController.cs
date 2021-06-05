@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class TwoDimensionalAnimationStateController : MonoBehaviour
 {
-
+    [SerializeField]
     Animator anim;
     CharacterController cc;
 
     float velocityZ = 0f, velocityX = 0;
     public float acceleration = 2f, deceleration = 2f;
     public float maximumWalkVelocity = 0.5f, maximumRunVelocity = 2f;
-    public float speed = 5f;
+    public float speed = 5f , runfactor = 1.5f;
 
 
     //increase performance
@@ -20,7 +20,7 @@ public class TwoDimensionalAnimationStateController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         cc = GetComponent<CharacterController>();
 
         velocityZHash = Animator.StringToHash("Velocity Z");
@@ -76,7 +76,24 @@ public class TwoDimensionalAnimationStateController : MonoBehaviour
         //    velocityZ = 0;
         //}
 
-        if(!forwardPressed && !backPressed && velocityZ != 0 && (velocityZ > -0.05f && velocityZ < 0.05f))
+        if(!forwardPressed && !backPressed && !rightPressed && !leftPressed)
+        {
+            velocityZ = 0;
+            velocityX = 0;
+        }
+
+
+        //if (!forwardPressed && !backPressed && (velocityZ == -0.1 || velocityZ == 0.1))
+        //{
+        //    velocityZ = 0;
+        //}
+        //if (!leftPressed && !rightPressed && (velocityX == -0.1 || velocityX == 0.1))
+        //{
+        //    velocityX = 0;
+        //}
+
+
+        if (!forwardPressed && !backPressed && velocityZ != 0 && (velocityZ > -0.05f && velocityZ < 0.05f))
         {
             velocityZ = 0;
         }
@@ -211,7 +228,16 @@ public class TwoDimensionalAnimationStateController : MonoBehaviour
         Vector3 movementVector = new Vector3();
         movementVector += transform.forward * velocityZ;
         movementVector += transform.right * velocityX;
-
-        cc.Move(movementVector * speed * Time.deltaTime);
+        //Debug.Log("Magnitude of Mvector " + movementVector.magnitude + " moveVector = " + movementVector);
+        //Debug.Log("Magnitude of normalised Mvector " + movementVector.normalized.magnitude + " moveVectorNormal = " + movementVector.normalized);
+        if (runPressed)
+        {
+            cc.Move(movementVector.normalized * runfactor * speed * Time.deltaTime);
+        }
+        else
+        {
+            cc.Move(movementVector.normalized * speed * Time.deltaTime);
+        }
+        
     }
 }
