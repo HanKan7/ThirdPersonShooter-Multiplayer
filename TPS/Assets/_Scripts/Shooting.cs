@@ -6,17 +6,21 @@ using Photon.Pun;
 
 public class Shooting : MonoBehaviourPunCallbacks
 {
-    public Gun[] allGuns;
+    [SerializeField] Gun[] allGuns;
     float shotTimer = 0;
-    public float accumulatedTime = 0;
+    [SerializeField] float accumulatedTime = 0;
 
-    public ParticleSystem muzzleFlash;
-    public ParticleSystem hitEffect;
-    public TrailRenderer tracerEffect;
 
-    public Transform raycastOriginOfBullet;
-    public Transform tracerGunRaycastOrigin;
-    public Transform notHittingPoint;
+    [Header ("Effects VFX")]
+    [SerializeField] ParticleSystem muzzleFlash;
+    [SerializeField] ParticleSystem hitEffect;
+    [SerializeField] ParticleSystem bloodEffect;
+    [SerializeField] TrailRenderer tracerEffect;
+
+    [Header("Raycast Transforms")]
+    [SerializeField] Transform raycastOriginOfBullet;
+    [SerializeField] Transform tracerGunRaycastOrigin;
+    [SerializeField] Transform notHittingPoint;
 
     public TMP_Text ammoCountText;
     int ammoCount;
@@ -125,6 +129,7 @@ public class Shooting : MonoBehaviourPunCallbacks
                 if (hitInfo.collider.CompareTag("Player"))
                 {
                     Debug.Log("We hit " + hitInfo.collider.name);
+                    PhotonNetwork.Instantiate(bloodEffect.name, hitInfo.point, Quaternion.identity);
                 }
             }
             else

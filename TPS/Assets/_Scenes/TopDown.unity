@@ -5276,22 +5276,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ybot_new
       objectReference: {fileID: 0}
-    - target: {fileID: 8638409631172519632, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8872269504642094256, guid: 3b490dd9121299541b9c92458eec549b,
         type: 3}
       propertyPath: ammoCountText
       value: 
       objectReference: {fileID: 1063464309}
-    - target: {fileID: 8872269504642094256, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: tracerEffect
-      value: 
-      objectReference: {fileID: 8784868766056272125, guid: 7c89dde0f019cac40982606cc015dfe1,
-        type: 3}
     - target: {fileID: 8872269504642094263, guid: 3b490dd9121299541b9c92458eec549b,
         type: 3}
       propertyPath: vcam

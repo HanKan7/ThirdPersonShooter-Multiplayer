@@ -2336,7 +2336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8983022531794025578
 Transform:
   m_ObjectHideFlags: 0
@@ -2439,6 +2439,8 @@ MonoBehaviour:
   accumulatedTime: 0
   muzzleFlash: {fileID: 4949312742456929156}
   hitEffect: {fileID: 633158801108966364, guid: 424cd87bb6605164493545a309cb5dac,
+    type: 3}
+  bloodEffect: {fileID: 198321120434662062, guid: fa5943a8aae19ff4bb8526812a5330ab,
     type: 3}
   tracerEffect: {fileID: 8784868766056272125, guid: 7c89dde0f019cac40982606cc015dfe1,
     type: 3}
