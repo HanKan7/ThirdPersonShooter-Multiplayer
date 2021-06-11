@@ -54,6 +54,7 @@ public class TopDownCharacterMover : MonoBehaviourPunCallbacks
             vcam.GetComponent<CinemachineVirtualCamera>().enabled = true;
             Transform playerTransform = this.gameObject.transform;
             vcam.GetComponent<CinemachineVirtualCamera>().Follow = playerTransform;
+            vcam.GetComponent<CinemachineVirtualCamera>().LookAt = playerTransform;
         }
     }
 
@@ -80,9 +81,11 @@ public class TopDownCharacterMover : MonoBehaviourPunCallbacks
 
     void RotateTowardsMouse()
     {
+        
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray , out RaycastHit hitInfo , maxDistance: 300f , ground))
         {
+            Debug.Log("Rotating Player");
             var target = hitInfo.point;
             target.y = transform.position.y;
             transform.LookAt(target);

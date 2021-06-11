@@ -23,7 +23,7 @@ public class TwoDimensionalAnimationStateController : MonoBehaviourPunCallbacks
     {
         //anim = GetComponent<Animator>();
         cc = GetComponent<CharacterController>();
-
+        
         velocityZHash = Animator.StringToHash("Velocity Z");
         velocityXHash = Animator.StringToHash("Velocity X");
     }
@@ -208,6 +208,11 @@ public class TwoDimensionalAnimationStateController : MonoBehaviourPunCallbacks
     }
 
 
+    void handleGravity()
+    {
+
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -234,6 +239,19 @@ public class TwoDimensionalAnimationStateController : MonoBehaviourPunCallbacks
             movementVector += transform.right * velocityX;
             //Debug.Log("Magnitude of Mvector " + movementVector.magnitude + " moveVector = " + movementVector);
             //Debug.Log("Magnitude of normalised Mvector " + movementVector.normalized.magnitude + " moveVectorNormal = " + movementVector.normalized);
+
+
+            //Gravity
+            if (cc.isGrounded)
+            {
+                float groundedGravity = -.05f;
+                movementVector.y = groundedGravity;
+            }
+            else
+            {
+                float gravity = -9.8f;
+                movementVector.y += gravity;
+            }
             if (runPressed)
             {
                 cc.Move(movementVector.normalized * runfactor * speed * Time.deltaTime);
@@ -242,6 +260,9 @@ public class TwoDimensionalAnimationStateController : MonoBehaviourPunCallbacks
             {
                 cc.Move(movementVector.normalized * speed * Time.deltaTime);
             }
+
+
+
         }
         
     }

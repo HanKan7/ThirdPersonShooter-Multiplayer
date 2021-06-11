@@ -14,8 +14,8 @@ public class Shooting : MonoBehaviourPunCallbacks
     public ParticleSystem hitEffect;
     public TrailRenderer tracerEffect;
 
-    public Transform raycastOrigin;
-    public Transform gunRaycastOrigin;
+    public Transform raycastOriginOfBullet;
+    public Transform tracerGunRaycastOrigin;
     public Transform notHittingPoint;
 
     public TMP_Text ammoCountText;
@@ -108,15 +108,14 @@ public class Shooting : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             muzzleFlash.Emit(1);
-            ray.origin = raycastOrigin.position;
-            ray.direction = raycastOrigin.transform.forward;
+            ray.origin = raycastOriginOfBullet.position;
+            ray.direction = raycastOriginOfBullet.transform.forward;
             var tracer = Instantiate(tracerEffect, ray.origin, Quaternion.identity);
-            tracer.AddPosition(gunRaycastOrigin.position);
+            tracer.GetComponent<TrailRenderer>().AddPosition(tracerGunRaycastOrigin.position);
             if (Physics.Raycast(ray, out hitInfo, 1000f))
             {
-                hitEffect.transform.position = hitInfo.point;
-                hitEffect.transform.forward = hitInfo.normal;
-                hitEffect.Emit(1);
+                photonView.RPC("ShowParticles", RpcTarget.All);
+                //ShowParticles();
                 tracer.transform.position = hitInfo.point;
                 if (hitInfo.collider.CompareTag("Player"))
                 {
@@ -128,9 +127,30 @@ public class Shooting : MonoBehaviourPunCallbacks
                 tracer.transform.position = notHittingPoint.position;
             }
             Destroy(tracer.gameObject, 0.25f);
+            //photonView.RPC("DestroyTracerEffectRPC", RpcTarget.All, tracer);
             ammoCount--;
             ammoCountText.text = ammoCount.ToString();
         }
+    }
+
+    [PunRPC]
+    void ShowParticles()
+    {
+        hitEffect.transform.position = hitInfo.point;
+        hitEffect.transform.forward = hitInfo.normal;
+        hitEffect.Emit(1);
+    }
+
+    [PunRPC]
+    void DestroyTracerEffectRPC(GameObject tracer)
+    {
+        StartCoroutine(DestroyTracerEffectCoroutine(tracer.gameObject));
+    }
+
+    IEnumerator DestroyTracerEffectCoroutine(GameObject tracer)
+    {
+        yield return new WaitForSeconds(0.25f);
+        PhotonNetwork.Destroy(tracer);
     }
 
     void GiveDamage(float damageAmt)
