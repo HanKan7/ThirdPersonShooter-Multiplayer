@@ -85,7 +85,7 @@ public class TopDownCharacterMover : MonoBehaviourPunCallbacks
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray , out RaycastHit hitInfo , maxDistance: 300f , ground))
         {
-            Debug.Log("Rotating Player");
+            //Debug.Log("Rotating Player");
             var target = hitInfo.point;
             target.y = transform.position.y;
             transform.LookAt(target);

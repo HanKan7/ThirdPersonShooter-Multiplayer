@@ -43,6 +43,10 @@ MonoBehaviour:
   - Reload
   - ShowParticles
   - DestroyTracerEffectRPC
+  - EnableMuzzleFlash
+  - DisableMuzzleFlash
+  - DisableHitEffect
+  - EnableHitEffect
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

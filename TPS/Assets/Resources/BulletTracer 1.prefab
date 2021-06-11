@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 666462789492042734}
   - component: {fileID: 923831217460415917}
   m_Layer: 0
-  m_Name: BulletTracer
+  m_Name: BulletTracer 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,4 +182,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c152d46f28271be4c99c219a65c5eb3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 0.25
+  lifeTime: 1

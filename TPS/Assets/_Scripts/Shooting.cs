@@ -53,6 +53,10 @@ public class Shooting : MonoBehaviourPunCallbacks
                 shotTimer = allGuns[0].rateOfFire;
                 RateOfFire();
             }
+            else
+            {
+                photonView.RPC("DisableMuzzleFlash", RpcTarget.All);
+            }
             if (Input.GetKeyDown(KeyCode.R))
             {
                 anim.SetTrigger("isReloading");
@@ -95,7 +99,7 @@ public class Shooting : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            Debug.Log("Reloading finished");
+            //Debug.Log("Reloading finished");
             ammoCount = allGuns[0].ammoCount;
             ammoCountText.text = ammoCount.ToString();
             this.isReloading = false;
@@ -107,26 +111,27 @@ public class Shooting : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            muzzleFlash.Emit(1);
+            //muzzleFlash.Emit(1);
+            photonView.RPC("EnableMuzzleFlash", RpcTarget.All);
             ray.origin = raycastOriginOfBullet.position;
             ray.direction = raycastOriginOfBullet.transform.forward;
-            var tracer = Instantiate(tracerEffect, ray.origin, Quaternion.identity);
+            GameObject tracer = PhotonNetwork.Instantiate(tracerEffect.name, ray.origin, Quaternion.identity);
             tracer.GetComponent<TrailRenderer>().AddPosition(tracerGunRaycastOrigin.position);
             if (Physics.Raycast(ray, out hitInfo, 1000f))
             {
-                photonView.RPC("ShowParticles", RpcTarget.All);
+                photonView.RPC("EnableHitEffect", RpcTarget.All);
                 //ShowParticles();
                 tracer.transform.position = hitInfo.point;
                 if (hitInfo.collider.CompareTag("Player"))
                 {
-                    GiveDamage(allGuns[0].shotDamage);
+                    Debug.Log("We hit " + hitInfo.collider.name);
                 }
             }
             else
             {
                 tracer.transform.position = notHittingPoint.position;
             }
-            Destroy(tracer.gameObject, 0.25f);
+            //Destroy(tracer.gameObject, 0.25f);
             //photonView.RPC("DestroyTracerEffectRPC", RpcTarget.All, tracer);
             ammoCount--;
             ammoCountText.text = ammoCount.ToString();
@@ -134,11 +139,31 @@ public class Shooting : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void ShowParticles()
+    void EnableMuzzleFlash()
+    {
+        muzzleFlash.transform.gameObject.SetActive(true);
+    }
+
+    [PunRPC]
+    void DisableMuzzleFlash()
+    {
+        muzzleFlash.transform.gameObject.SetActive(false);
+    }
+
+    [PunRPC]
+    void EnableHitEffect()
     {
         hitEffect.transform.position = hitInfo.point;
         hitEffect.transform.forward = hitInfo.normal;
-        hitEffect.Emit(1);
+        PhotonNetwork.Instantiate(hitEffect.name, hitEffect.transform.position, hitEffect.transform.rotation);
+        //hitEffect.Emit(1);
+        //hitEffect.transform.gameObject.SetActive(true);
+    }
+
+    [PunRPC]
+    void DisableHitEffect()
+    {
+        hitEffect.transform.gameObject.SetActive(false);
     }
 
     [PunRPC]
