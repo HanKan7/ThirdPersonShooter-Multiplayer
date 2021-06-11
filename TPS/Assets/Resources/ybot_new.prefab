@@ -2336,7 +2336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8983022531794025578
 Transform:
   m_ObjectHideFlags: 0
@@ -2554,11 +2554,16 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 2
     Name: reloading
+  - Type: 9
+    SynchronizeType: 1
+    Name: isDead
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
   - SynchronizeType: 2
     LayerIndex: 1
+  - SynchronizeType: 0
+    LayerIndex: 2
 --- !u!1 &8736842955531065799
 GameObject:
   m_ObjectHideFlags: 0

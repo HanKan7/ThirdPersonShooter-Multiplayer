@@ -126,10 +126,11 @@ public class Shooting : MonoBehaviourPunCallbacks
                 photonView.RPC("EnableHitEffect", RpcTarget.All);
                 //ShowParticles();
                 tracer.transform.position = hitInfo.point;
-                if (hitInfo.collider.CompareTag("Player"))
+                if (hitInfo.collider.CompareTag("Player"))  //Editor to clone
                 {
                     Debug.Log("We hit " + hitInfo.collider.name);
                     PhotonNetwork.Instantiate(bloodEffect.name, hitInfo.point, Quaternion.identity);
+                    hitInfo.collider.gameObject.GetPhotonView().RPC("DealDamageOnSelf", RpcTarget.All , photonView.Owner.NickName); //Editor name is passed here
                 }
             }
             else
@@ -140,6 +141,32 @@ public class Shooting : MonoBehaviourPunCallbacks
             //photonView.RPC("DestroyTracerEffectRPC", RpcTarget.All, tracer);
             ammoCount--;
             ammoCountText.text = ammoCount.ToString();
+        }
+    }
+
+    [PunRPC]
+    public void DealDamageOnSelf(string damager)
+    {
+        TakeDamage(damager);
+    }
+
+    //Called in clone
+    public void TakeDamage(string damager)
+    {
+        //Debug.Log(photonView.Owner.NickName + " has been hit by " + damager);   //clone has been hit by editor
+        if (photonView.IsMine)
+        {
+            //this.gameObject.GetComponent<CharacterController>().height = 0.1f;
+            anim.SetTrigger("isDead");
+            //PlayerSpawner.instance.Die();
+        }
+    }
+
+    public void Die()
+    {
+        if (photonView.IsMine)
+        {
+            PlayerSpawner.instance.Die();
         }
     }
 

@@ -5226,55 +5226,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 516815761295704137, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1503313644906384267, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 1752006698894878706, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 1896066983227837859, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 3730910156740066812, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809165822626104271, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 5025643567092013816, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 7868457042858448981, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8092520134154999231, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 8638409631172519632, guid: 3b490dd9121299541b9c92458eec549b,
         type: 3}
       propertyPath: m_Name
       value: ybot_new
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638409631172519632, guid: 3b490dd9121299541b9c92458eec549b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8872269504642094256, guid: 3b490dd9121299541b9c92458eec549b,
         type: 3}
@@ -5286,11 +5246,6 @@ PrefabInstance:
       propertyPath: vcam
       value: 
       objectReference: {fileID: 1968922630}
-    - target: {fileID: 8872269504797345983, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 11
-      objectReference: {fileID: 0}
     - target: {fileID: 8983022531794025578, guid: 3b490dd9121299541b9c92458eec549b,
         type: 3}
       propertyPath: m_LocalPosition.x
