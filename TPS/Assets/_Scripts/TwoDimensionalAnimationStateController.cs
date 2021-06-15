@@ -7,7 +7,7 @@ public class TwoDimensionalAnimationStateController : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     Animator anim;
-    CharacterController cc;
+    public CharacterController cc;
 
     float velocityZ = 0f, velocityX = 0;
     public float acceleration = 2f, deceleration = 2f;

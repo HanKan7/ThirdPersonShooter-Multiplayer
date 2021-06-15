@@ -5,6 +5,6 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     public float rateOfFire;
-    public int shotDamage;
+    public float shotDamage;
     public int ammoCount;
 }

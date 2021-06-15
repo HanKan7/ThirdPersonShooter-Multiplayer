@@ -10,6 +10,11 @@ public class Shooting : MonoBehaviourPunCallbacks
     float shotTimer = 0;
     [SerializeField] float accumulatedTime = 0;
 
+    [Header("Health Parameters")]
+    [SerializeField] float maxHealth = 100f;
+    [SerializeField] float currentHealth;
+    [SerializeField] HealthBarScript healthBar;
+
 
     [Header ("Effects VFX")]
     [SerializeField] ParticleSystem muzzleFlash;
@@ -43,6 +48,8 @@ public class Shooting : MonoBehaviourPunCallbacks
             ammoCount = allGuns[0].ammoCount;
             ammoCountText = GameObject.Find("AmmoAmount").GetComponent<TMP_Text>();
             ammoCountText.text = ammoCount.ToString();
+            currentHealth = maxHealth;
+            photonView.RPC("SetMaxHealth", RpcTarget.All, maxHealth);
             //anim = GetComponent<Animator>();
         }
 
@@ -130,7 +137,7 @@ public class Shooting : MonoBehaviourPunCallbacks
                 {
                     Debug.Log("We hit " + hitInfo.collider.name);
                     PhotonNetwork.Instantiate(bloodEffect.name, hitInfo.point, Quaternion.identity);
-                    hitInfo.collider.gameObject.GetPhotonView().RPC("DealDamageOnSelf", RpcTarget.All , photonView.Owner.NickName); //Editor name is passed here
+                    hitInfo.collider.gameObject.GetPhotonView().RPC("DealDamageOnSelf", RpcTarget.All , photonView.Owner.NickName, allGuns[0].shotDamage); //Editor name is passed here
                 }
             }
             else
@@ -145,27 +152,49 @@ public class Shooting : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void DealDamageOnSelf(string damager)
+    public void DealDamageOnSelf(string damager, float damageAmt)
     {
-        TakeDamage(damager);
+        TakeDamage(damager, damageAmt);
     }
 
     //Called in clone
-    public void TakeDamage(string damager)
+    public void TakeDamage(string damager, float damageAmt)
     {
         //Debug.Log(photonView.Owner.NickName + " has been hit by " + damager);   //clone has been hit by editor
         if (photonView.IsMine)
         {
             //this.gameObject.GetComponent<CharacterController>().height = 0.1f;
-            anim.SetTrigger("isDead");
+            currentHealth -= damageAmt;
+            photonView.RPC("SetHealth", RpcTarget.All, currentHealth);
+            if(currentHealth <= 0)
+            {
+                currentHealth = 0;
+                anim.SetTrigger("isDead");
+                UIController.instance.deathText.text = "KILLED BY " + damager;
+                UIController.instance.DeathScreen.SetActive(true);
+            }
+
             //PlayerSpawner.instance.Die();
         }
+    }
+
+    [PunRPC]
+    public void SetMaxHealth(float maxHealth)
+    {
+        healthBar.SetMaxHealth(maxHealth);
+    }
+
+    [PunRPC]
+    public void SetHealth(float currentHealth)
+    {
+        healthBar.SetHealth(currentHealth);
     }
 
     public void Die()
     {
         if (photonView.IsMine)
         {
+            UIController.instance.DeathScreen.SetActive(false);
             PlayerSpawner.instance.Die();
         }
     }
