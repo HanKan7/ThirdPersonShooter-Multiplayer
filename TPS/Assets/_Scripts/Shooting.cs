@@ -11,6 +11,7 @@ public class Shooting : MonoBehaviourPunCallbacks
     [SerializeField] float accumulatedTime = 0;
 
     [Header("Health Parameters")]
+    [SerializeField] TMP_Text playerName;
     [SerializeField] float maxHealth = 100f;
     [SerializeField] float currentHealth;
     [SerializeField] HealthBarScript healthBar;
@@ -50,6 +51,7 @@ public class Shooting : MonoBehaviourPunCallbacks
             ammoCountText.text = ammoCount.ToString();
             currentHealth = maxHealth;
             photonView.RPC("SetMaxHealth", RpcTarget.All, maxHealth);
+            photonView.RPC("SetName", RpcTarget.All, photonView.Owner.NickName);
             //anim = GetComponent<Animator>();
         }
 
@@ -176,6 +178,12 @@ public class Shooting : MonoBehaviourPunCallbacks
 
             //PlayerSpawner.instance.Die();
         }
+    }
+
+    [PunRPC]
+    public void SetName(string name)
+    {
+        playerName.text = name;
     }
 
     [PunRPC]
