@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5529412, g: 0.9254902, b: 0.3529412, a: 1}
+  m_Color: {r: 0.28627452, g: 0.59607846, b: 0.10980392, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -893,8 +893,8 @@ MonoBehaviour:
   slider: {fileID: 1324567568182147327}
   gradient:
     serializedVersion: 2
-    key0: {r: 0.9150943, g: 0.3237362, b: 0.3237362, a: 1}
-    key1: {r: 0.55490094, g: 0.9245283, b: 0.3532396, a: 1}
+    key0: {r: 0.990566, g: 0.31305623, b: 0.31305623, a: 1}
+    key1: {r: 0.28425536, g: 0.5943396, b: 0.10933607, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -902,7 +902,7 @@ MonoBehaviour:
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 65535
+    ctime1: 65342
     ctime2: 0
     ctime3: 0
     ctime4: 0
