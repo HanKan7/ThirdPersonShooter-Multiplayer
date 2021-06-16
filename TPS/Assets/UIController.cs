@@ -10,6 +10,12 @@ public class UIController : MonoBehaviour
     public GameObject DeathScreen;
     public TMP_Text deathText;
 
+    [Header("Kills/Deaths UI")]
+    public TMP_Text killsText, deathsText;
+
+    [Header("Ammo UI")]
+    public TMP_Text ammoCountText;
+
     private void Awake()
     {
         instance = this;

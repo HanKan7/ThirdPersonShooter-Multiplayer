@@ -28,7 +28,7 @@ public class Shooting : MonoBehaviourPunCallbacks
     [SerializeField] Transform tracerGunRaycastOrigin;
     [SerializeField] Transform notHittingPoint;
 
-    public TMP_Text ammoCountText;
+    
     int ammoCount;
 
     public Animator anim;
@@ -47,8 +47,8 @@ public class Shooting : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             ammoCount = allGuns[0].ammoCount;
-            ammoCountText = GameObject.Find("AmmoAmount").GetComponent<TMP_Text>();
-            ammoCountText.text = ammoCount.ToString();
+            //ammoCountText = GameObject.Find("AmmoAmount").GetComponent<TMP_Text>();
+            UIController.instance.ammoCountText.text = ammoCount.ToString();
             currentHealth = maxHealth;
             photonView.RPC("SetMaxHealth", RpcTarget.All, maxHealth);
             photonView.RPC("SetName", RpcTarget.All, photonView.Owner.NickName);
@@ -114,7 +114,7 @@ public class Shooting : MonoBehaviourPunCallbacks
         {
             //Debug.Log("Reloading finished");
             ammoCount = allGuns[0].ammoCount;
-            ammoCountText.text = ammoCount.ToString();
+            UIController.instance.ammoCountText.text = ammoCount.ToString();
             this.isReloading = false;
         }
 
@@ -137,9 +137,9 @@ public class Shooting : MonoBehaviourPunCallbacks
                 tracer.transform.position = hitInfo.point;
                 if (hitInfo.collider.CompareTag("Player"))  //Editor to clone
                 {
-                    Debug.Log("We hit " + hitInfo.collider.name);
+                    //Debug.Log("We hit " + hitInfo.collider.name);
                     PhotonNetwork.Instantiate(bloodEffect.name, hitInfo.point, Quaternion.identity);
-                    hitInfo.collider.gameObject.GetPhotonView().RPC("DealDamageOnSelf", RpcTarget.All , photonView.Owner.NickName, allGuns[0].shotDamage); //Editor name is passed here
+                    hitInfo.collider.gameObject.GetPhotonView().RPC("DealDamageOnSelf", RpcTarget.All , photonView.Owner.NickName, allGuns[0].shotDamage, PhotonNetwork.LocalPlayer.ActorNumber); //Editor name is passed here
                 }
             }
             else
@@ -149,18 +149,18 @@ public class Shooting : MonoBehaviourPunCallbacks
             //Destroy(tracer.gameObject, 0.25f);
             //photonView.RPC("DestroyTracerEffectRPC", RpcTarget.All, tracer);
             ammoCount--;
-            ammoCountText.text = ammoCount.ToString();
+            UIController.instance.ammoCountText.text = ammoCount.ToString();
         }
     }
 
     [PunRPC]
-    public void DealDamageOnSelf(string damager, float damageAmt)
+    public void DealDamageOnSelf(string damager, float damageAmt, int actor)
     {
-        TakeDamage(damager, damageAmt);
+        TakeDamage(damager, damageAmt, actor);
     }
 
     //Called in clone
-    public void TakeDamage(string damager, float damageAmt)
+    public void TakeDamage(string damager, float damageAmt, int actor)
     {
         //Debug.Log(photonView.Owner.NickName + " has been hit by " + damager);   //clone has been hit by editor
         if (photonView.IsMine)
@@ -172,12 +172,20 @@ public class Shooting : MonoBehaviourPunCallbacks
             {
                 currentHealth = 0;
                 anim.SetTrigger("isDead");
+                photonView.RPC("DisableCharacterController", RpcTarget.All);
+                MatchManager.instance.UpdateStatsSend(actor, 0, 1); //Called in clone but updated in editor
                 UIController.instance.deathText.text = "KILLED BY " + damager;
                 UIController.instance.DeathScreen.SetActive(true);
             }
 
             //PlayerSpawner.instance.Die();
         }
+    }
+
+    [PunRPC]
+    public void DisableCharacterController()
+    {
+        this.gameObject.GetComponent<CharacterController>().enabled = false;
     }
 
     [PunRPC]
@@ -203,6 +211,7 @@ public class Shooting : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             UIController.instance.DeathScreen.SetActive(false);
+            MatchManager.instance.UpdateStatsSend(PhotonNetwork.LocalPlayer.ActorNumber, 1, 1);
             PlayerSpawner.instance.Die();
         }
     }

@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 2ef39320f0049664da358bbf1fdfb05b, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -121,6 +121,75 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &9100077
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2329341811628957648, guid: e025e0f07f6b75041a3037f9c7ed4fb2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -87.43862
+      objectReference: {fileID: 0}
+    - target: {fileID: 2329341811628957648, guid: e025e0f07f6b75041a3037f9c7ed4fb2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -107.22428
+      objectReference: {fileID: 0}
+    - target: {fileID: 2329341811628957648, guid: e025e0f07f6b75041a3037f9c7ed4fb2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -104.436584
+      objectReference: {fileID: 0}
+    - target: {fileID: 2329341811628957648, guid: e025e0f07f6b75041a3037f9c7ed4fb2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2329341811628957648, guid: e025e0f07f6b75041a3037f9c7ed4fb2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2329341811628957648, guid: e025e0f07f6b75041a3037f9c7ed4fb2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2329341811628957648, guid: e025e0f07f6b75041a3037f9c7ed4fb2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2329341811628957648, guid: e025e0f07f6b75041a3037f9c7ed4fb2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2329341811628957648, guid: e025e0f07f6b75041a3037f9c7ed4fb2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2329341811628957648, guid: e025e0f07f6b75041a3037f9c7ed4fb2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2329341811628957648, guid: e025e0f07f6b75041a3037f9c7ed4fb2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2329341811628957649, guid: e025e0f07f6b75041a3037f9c7ed4fb2,
+        type: 3}
+      propertyPath: m_Name
+      value: Desert
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e025e0f07f6b75041a3037f9c7ed4fb2, type: 3}
 --- !u!1 &10773329
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,13 +266,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 10773329}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0.26456428, y: 0.3726126, z: -0.11171766, w: -0.8824312}
+  m_LocalPosition: {x: 3.05, y: 3.03, z: -16.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 33.379, y: -45.784, z: 0}
 --- !u!114 &581762269 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6754251443409612347, guid: 1a355212d013ce147bec5cc009c32f43,
@@ -1315,8 +1384,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291005756
-  m_fontColor: {r: 0.2352941, g: 0.5527364, b: 0.7647059, a: 1}
+    rgba: 4282153411
+  m_fontColor: {r: 0.7647059, g: 0.4757098, b: 0.2352941, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

@@ -125,6 +125,9 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
     public void ListPlayersReceive(object[] dataReceived)
     {
         allPlayers.Clear();
+
+        Debug.Log("all players cleared");
+
         for (int i = 0; i < dataReceived.Length; i++)
         {
             object[] pieceOfPlayer = (object[])dataReceived[i];
@@ -137,14 +140,62 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
         }
     }
 
-    public void UpdateStatsSend()
+    public void UpdateStatsSend(int actorSending, int statToUpdate, int amountToChange)     //statupdate 0 for kills 1 for death
     {
-
+        object[] package = new object[] { actorSending, statToUpdate, amountToChange };
+        PhotonNetwork.RaiseEvent((byte)EventCodes.UpdateStat, package, new RaiseEventOptions { Receivers = ReceiverGroup.All }, new SendOptions { Reliability = true });
     }
 
     public void UpdateStatsReceive(object[] dataReceived)
     {
+        int actor = (int)dataReceived[0];
+        int statType = (int)dataReceived[1];
+        int amount = (int)dataReceived[2];
 
+        for (int i = 0; i < allPlayers.Count; i++)
+        {
+            if (allPlayers[i].actor == actor)
+            {
+                switch (statType)
+                {
+                    case 0: //kills
+                        allPlayers[i].kills += amount;
+                        //Debug.Log("Player " + allPlayers[i].name + " kills : " + allPlayers[i].kills);
+                        break;
+
+                    case 1:
+                        allPlayers[i].deaths += amount;
+                        //Debug.Log("Player " + allPlayers[i].name + " deaths : " + allPlayers[i].deaths);
+                        break;
+                }
+
+                if (i == index)
+                {
+                    UpdateStatsDisplay();
+                }
+
+                //if (UIContoller.instance.leaderboard.activeInHierarchy)
+                //{
+                //    ShowLeaderBoard();
+                //}
+
+                break;
+            }
+        }
+    }
+
+    public void UpdateStatsDisplay()
+    {
+        if(allPlayers.Count > index)
+        {
+            UIController.instance.killsText.text =  allPlayers[index].kills.ToString();
+            UIController.instance.deathsText.text = allPlayers[index].deaths.ToString();
+        }
+        else
+        {
+            UIController.instance.killsText.text = "00";
+            UIController.instance.deathsText.text = "00";
+        }
     }
 }
 

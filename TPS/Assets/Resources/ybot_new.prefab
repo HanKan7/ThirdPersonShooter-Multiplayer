@@ -3081,7 +3081,6 @@ MonoBehaviour:
   raycastOriginOfBullet: {fileID: 8872269504849138740}
   tracerGunRaycastOrigin: {fileID: 8872269504851975398}
   notHittingPoint: {fileID: 4082453238104476250}
-  ammoCountText: {fileID: 0}
   anim: {fileID: 3047309337888581136}
   isReloading: 0
 --- !u!114 &8872269504642094258
