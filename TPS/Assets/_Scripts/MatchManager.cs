@@ -26,6 +26,9 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
     private int index;
 
 
+    private List<Leaderboard> lBoardPlayer = new List<Leaderboard>();
+
+
     public EventCodes theEvent;
 
     // Start is called before the first frame update
@@ -44,7 +47,14 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKey(KeyCode.Tab))
+        {
+            ShowLeaderBoard();
+        }
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            UIController.instance.leaderBoardGO.SetActive(false);
+        }
     }
 
     public void OnEvent(EventData photonEvent)  //Reads events happening
@@ -126,7 +136,7 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         allPlayers.Clear();
 
-        Debug.Log("all players cleared");
+        //Debug.Log("all players cleared");
 
         for (int i = 0; i < dataReceived.Length; i++)
         {
@@ -195,6 +205,27 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
         {
             UIController.instance.killsText.text = "00";
             UIController.instance.deathsText.text = "00";
+        }
+    }
+
+    void ShowLeaderBoard()
+    {
+        UIController.instance.leaderBoardGO.SetActive(true);
+
+        foreach(Leaderboard lp in lBoardPlayer)
+        {
+            Destroy(lp.gameObject);
+        }
+        lBoardPlayer.Clear();
+
+        UIController.instance.leaderBoardPlayerDisplay.gameObject.SetActive(false);
+
+        foreach (var player in allPlayers)
+        {
+            Leaderboard newPlayerDisplay = Instantiate(UIController.instance.leaderBoardPlayerDisplay, UIController.instance.leaderBoardPlayerDisplay.transform.parent);
+            newPlayerDisplay.SetDetails(player.name, player.kills, player.deaths);
+            newPlayerDisplay.gameObject.SetActive(true);
+            lBoardPlayer.Add(newPlayerDisplay);
         }
     }
 }

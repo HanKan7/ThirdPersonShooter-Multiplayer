@@ -168,12 +168,14 @@ public class Shooting : MonoBehaviourPunCallbacks
             //this.gameObject.GetComponent<CharacterController>().height = 0.1f;
             currentHealth -= damageAmt;
             photonView.RPC("SetHealth", RpcTarget.All, currentHealth);
-            if(currentHealth <= 0)
+            if(currentHealth < 0)
             {
-                currentHealth = 0;
-                anim.SetTrigger("isDead");
                 photonView.RPC("DisableCharacterController", RpcTarget.All);
+                Debug.Log("dead called");
+                currentHealth = 100;
+                anim.SetTrigger("isDead");
                 MatchManager.instance.UpdateStatsSend(actor, 0, 1); //Called in clone but updated in editor
+                MatchManager.instance.UpdateStatsSend(PhotonNetwork.LocalPlayer.ActorNumber, 1, 1);
                 UIController.instance.deathText.text = "KILLED BY " + damager;
                 UIController.instance.DeathScreen.SetActive(true);
             }
@@ -211,7 +213,6 @@ public class Shooting : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             UIController.instance.DeathScreen.SetActive(false);
-            MatchManager.instance.UpdateStatsSend(PhotonNetwork.LocalPlayer.ActorNumber, 1, 1);
             PlayerSpawner.instance.Die();
         }
     }

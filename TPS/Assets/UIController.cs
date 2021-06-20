@@ -16,6 +16,9 @@ public class UIController : MonoBehaviour
     [Header("Ammo UI")]
     public TMP_Text ammoCountText;
 
+    public GameObject leaderBoardGO;
+    public Leaderboard leaderBoardPlayerDisplay;
+
     private void Awake()
     {
         instance = this;
