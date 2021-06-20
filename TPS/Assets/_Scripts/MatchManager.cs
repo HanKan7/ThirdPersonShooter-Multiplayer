@@ -219,14 +219,40 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
         lBoardPlayer.Clear();
 
         UIController.instance.leaderBoardPlayerDisplay.gameObject.SetActive(false);
+        List<PlayerInfo> sorted = SortPlayers(allPlayers);
 
-        foreach (var player in allPlayers)
+        foreach (var player in sorted)
         {
             Leaderboard newPlayerDisplay = Instantiate(UIController.instance.leaderBoardPlayerDisplay, UIController.instance.leaderBoardPlayerDisplay.transform.parent);
             newPlayerDisplay.SetDetails(player.name, player.kills, player.deaths);
             newPlayerDisplay.gameObject.SetActive(true);
             lBoardPlayer.Add(newPlayerDisplay);
         }
+    }
+
+    List<PlayerInfo> SortPlayers(List<PlayerInfo> players)
+    {
+        List<PlayerInfo> sorted = new List<PlayerInfo>();
+        while(sorted.Count < players.Count)
+        {
+            int highest = -1;
+            PlayerInfo selectedPlayer = players[0];
+            foreach(PlayerInfo player in players)
+            {
+                if (!sorted.Contains(player))
+                {
+                    if (player.kills > highest)
+                    {
+                        selectedPlayer = player;
+                        highest = player.kills;
+                    }
+                }
+                
+            }
+
+            sorted.Add(selectedPlayer);
+        }
+        return sorted;
     }
 }
 
