@@ -500,8 +500,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 330, y: 202}
-  m_SizeDelta: {x: 481.55255, y: 300.8606}
+  m_AnchoredPosition: {x: 336.51, y: 251}
+  m_SizeDelta: {x: 673.01044, y: 436.10394}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &442614033
 MonoBehaviour:
@@ -549,8 +549,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 130.2
-  m_fontSizeBase: 130.2
+  m_fontSize: 174.14
+  m_fontSizeBase: 174.14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5423,6 +5423,7 @@ MonoBehaviour:
   mapCamPoint: {fileID: 153715167}
   state: 0
   waitAfterEnding: 3
+  perpetual: 1
 --- !u!4 &1669790776
 Transform:
   m_ObjectHideFlags: 0
@@ -6675,6 +6676,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1326313478, guid: 3b490dd9121299541b9c92458eec549b, type: 3}
+      propertyPath: sceneViewId
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 516815761295704137, guid: 3b490dd9121299541b9c92458eec549b,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1503313644906384267, guid: 3b490dd9121299541b9c92458eec549b,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1592333297200895261, guid: 3b490dd9121299541b9c92458eec549b,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -6685,11 +6700,46 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1752006698894878706, guid: 3b490dd9121299541b9c92458eec549b,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1896066983227837859, guid: 3b490dd9121299541b9c92458eec549b,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 1971289592632650227, guid: 3b490dd9121299541b9c92458eec549b,
         type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 2144795899}
+    - target: {fileID: 3730910156740066812, guid: 3b490dd9121299541b9c92458eec549b,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809165822626104271, guid: 3b490dd9121299541b9c92458eec549b,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5025643567092013816, guid: 3b490dd9121299541b9c92458eec549b,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7868457042858448981, guid: 3b490dd9121299541b9c92458eec549b,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092520134154999231, guid: 3b490dd9121299541b9c92458eec549b,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 8638409631172519632, guid: 3b490dd9121299541b9c92458eec549b,
         type: 3}
       propertyPath: m_Name
@@ -6705,6 +6755,11 @@ PrefabInstance:
       propertyPath: vcam
       value: 
       objectReference: {fileID: 1968922630}
+    - target: {fileID: 8872269504797345983, guid: 3b490dd9121299541b9c92458eec549b,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 8983022531794025578, guid: 3b490dd9121299541b9c92458eec549b,
         type: 3}
       propertyPath: m_LocalPosition.x

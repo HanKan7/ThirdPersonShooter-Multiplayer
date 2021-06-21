@@ -37,6 +37,13 @@ public class PlayerSpawner : MonoBehaviour
     public void Die()
     {
         PhotonNetwork.Destroy(player);
-        SpawnPlayer();
+        player = null;
+        Debug.Log("Dead");
+        if(MatchManager.instance.state == MatchManager.GameState.Playing && player == null)
+        {
+            Debug.Log("Spawning");
+            SpawnPlayer();
+        }
+        
     }
 }

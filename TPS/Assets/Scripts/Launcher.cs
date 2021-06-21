@@ -30,7 +30,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public GameObject nameInputScreen;
     public TMP_InputField nameInput;
-    private static bool hasSetNick;
+    public static bool hasSetNick;
 
     public string levelToPlay;
     public GameObject startButton;
