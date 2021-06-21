@@ -41,7 +41,11 @@ public class TopDownCharacterMover : MonoBehaviourPunCallbacks
     [Header("Cinecmachine")]
     [SerializeField]
     GameObject vcam;
-    
+
+    [Header("PlayerUI")]
+    [SerializeField]
+    GameObject playerMarker;
+
 
     // Start is called before the first frame update
     void Start()
@@ -50,11 +54,14 @@ public class TopDownCharacterMover : MonoBehaviourPunCallbacks
         {
             input = GetComponent<InputHandler>();
             cam = Camera.main;
+            Transform playerTransform = this.gameObject.transform;
+
             vcam = GameObject.Find("VCam");
             vcam.GetComponent<CinemachineVirtualCamera>().enabled = true;
-            Transform playerTransform = this.gameObject.transform;
             vcam.GetComponent<CinemachineVirtualCamera>().Follow = playerTransform;
             vcam.GetComponent<CinemachineVirtualCamera>().LookAt = playerTransform;
+
+            playerMarker.SetActive(true);
         }
     }
 

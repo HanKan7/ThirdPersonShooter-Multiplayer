@@ -5471,6 +5471,7 @@ MonoBehaviour:
   rayDistance: 100
   playerMaterials: []
   vcam: {fileID: 0}
+  playerMarker: {fileID: 0}
 --- !u!114 &1682066757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6484,8 +6485,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2144795896}
-  m_LocalRotation: {x: -0.2792303, y: -0.40548474, z: 0.13159339, w: -0.86040443}
-  m_LocalPosition: {x: -14.500513, y: 8.989105, z: -6.5459785}
+  m_LocalRotation: {x: -0.25193965, y: 0.2897174, z: -0.07934397, w: -0.9199428}
+  m_LocalPosition: {x: 3.8105352, y: 4.4316516, z: -5.716957}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6674,20 +6675,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1326313478, guid: 3b490dd9121299541b9c92458eec549b, type: 3}
-      propertyPath: sceneViewId
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 516815761295704137, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 1503313644906384267, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 18
-      objectReference: {fileID: 0}
     - target: {fileID: 1592333297200895261, guid: 3b490dd9121299541b9c92458eec549b,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -6698,46 +6685,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1752006698894878706, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1896066983227837859, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 1971289592632650227, guid: 3b490dd9121299541b9c92458eec549b,
         type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 2144795899}
-    - target: {fileID: 3730910156740066812, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809165822626104271, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 5025643567092013816, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 7868457042858448981, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 8092520134154999231, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 19
-      objectReference: {fileID: 0}
     - target: {fileID: 8638409631172519632, guid: 3b490dd9121299541b9c92458eec549b,
         type: 3}
       propertyPath: m_Name
@@ -6748,21 +6700,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8872269504642094256, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: ammoCountText
-      value: 
-      objectReference: {fileID: 1063464309}
     - target: {fileID: 8872269504642094263, guid: 3b490dd9121299541b9c92458eec549b,
         type: 3}
       propertyPath: vcam
       value: 
       objectReference: {fileID: 1968922630}
-    - target: {fileID: 8872269504797345983, guid: 3b490dd9121299541b9c92458eec549b,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 8983022531794025578, guid: 3b490dd9121299541b9c92458eec549b,
         type: 3}
       propertyPath: m_LocalPosition.x
